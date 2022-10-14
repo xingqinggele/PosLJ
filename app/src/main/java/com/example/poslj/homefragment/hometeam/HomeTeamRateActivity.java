@@ -65,46 +65,65 @@ public class HomeTeamRateActivity extends BaseActivity implements View.OnClickLi
     private List<FillBean> fillBeanList1 = new ArrayList<>();
     private List<FillBean> fillBeanList2 = new ArrayList<>();
     private HomeTeamFillGridViewAdapter madapter;
-
-
-    private TextView serverThreeSixTv;
-    private TextView serverFourEightTv;
-    private TextView serverNineNineTv;
-    private TextView serverTwoNineNineTv;
-    private TextView flowTwoFourTv;
-    private TextView flowThreeSixTv;
-    private TextView flowNineNineTv;
-    private TextView flowFourEightTv;
-    private TextView serverThreeSixTv_mine;
-    private TextView serverFourEightTv_mine;
-    private TextView serverNineNineTv_mine;
-    private TextView serverTwoNineNineTv_mine;
-    private TextView flowTwoFourTv_mine;
-    private TextView flowThreeSixTv_mine;
-    private TextView flowNineNineTv_mine;
-    private TextView flowFourEightTv_mine;
-    private EditText serverThreeSixEdit;
-    private EditText serverFourEightEdit;
-    private EditText serverNineNineEdit;
-    private EditText serverTwoNineNineEdit;
-    private EditText flowTwoFourEdit;
-    private EditText flowThreeSixEdit;
-    private EditText flowNineNineEdit;
-    private EditText flowFourEightEdit;
     private SwitchButtonView mBtnSwitch;
-
-    private int num0 = 0;
-    private int num1 = 0;
-    private int num2 = 0;
-    private int num3 = 0;
-    private int num4 = 0;
-    private int num5 = 0;
-    private int num6 = 0;
-    private int num7 = 0;
-
-
     private String serverSwitch = "0";   //0 关 1开
-
+    //新修改的
+    private TextView Tv1;
+    private TextView Tv2;
+    private TextView Tv3;
+    private TextView Tv4;
+    private TextView Tv5;
+    private TextView Tv6;
+    private TextView Tv7;
+    private TextView Tv8;
+    private TextView Tv9;
+    private TextView Tv10;
+    private TextView Tv11;
+    private TextView Tv12;
+    private TextView Tv13;
+    private TextView Tv14;
+    private TextView Tvv1;
+    private TextView Tvv2;
+    private TextView Tvv3;
+    private TextView Tvv4;
+    private TextView Tvv5;
+    private TextView Tvv6;
+    private TextView Tvv7;
+    private TextView Tvv8;
+    private TextView Tvv9;
+    private TextView Tvv10;
+    private TextView Tvv11;
+    private TextView Tvv12;
+    private TextView Tvv13;
+    private TextView Tvv14;
+    private EditText ed1;
+    private EditText ed2;
+    private EditText ed3;
+    private EditText ed4;
+    private EditText ed5;
+    private EditText ed6;
+    private EditText ed7;
+    private EditText ed8;
+    private EditText ed9;
+    private EditText ed10;
+    private EditText ed11;
+    private EditText ed12;
+    private EditText ed13;
+    private EditText ed14;
+    private int sNum1 = 0;
+    private int sNum2 = 0;
+    private int sNum3 = 0;
+    private int sNum4 = 0;
+    private int sNum5 = 0;
+    private int sNum6 = 0;
+    private int sNum7 = 0;
+    private int sNum8 = 0;
+    private int sNum9 = 0;
+    private int sNum10 = 0;
+    private int sNum11 = 0;
+    private int sNum12 = 0;
+    private int sNum13 = 0;
+    private int sNum14 = 0;
     @Override
     protected int getLayoutId() {
         //设置状态栏颜色
@@ -121,34 +140,51 @@ public class HomeTeamRateActivity extends BaseActivity implements View.OnClickLi
         js_flt0_tv = findViewById(R.id.js_flt0_tv);
         submit_btn = findViewById(R.id.submit_btn);
 
-        serverThreeSixTv = findViewById(R.id.serverThreeSixTv);
-        serverFourEightTv = findViewById(R.id.serverFourEightTv);
-        serverNineNineTv = findViewById(R.id.serverNineNineTv);
-        serverTwoNineNineTv = findViewById(R.id.serverTwoNineNineTv);
-        flowTwoFourTv = findViewById(R.id.flowTwoFourTv);
-        flowThreeSixTv = findViewById(R.id.flowThreeSixTv);
-        flowNineNineTv = findViewById(R.id.flowNineNineTv);
-        flowFourEightTv = findViewById(R.id.flowFourEightTv);
-
-        serverThreeSixTv_mine = findViewById(R.id.serverThreeSixTv_mine);
-        serverFourEightTv_mine = findViewById(R.id.serverFourEightTv_mine);
-        serverNineNineTv_mine = findViewById(R.id.serverNineNineTv_mine);
-        serverTwoNineNineTv_mine = findViewById(R.id.serverTwoNineNineTv_mine);
-        flowTwoFourTv_mine = findViewById(R.id.flowTwoFour_mine);
-        flowThreeSixTv_mine = findViewById(R.id.flowThreeSixTv_mine);
-        flowNineNineTv_mine = findViewById(R.id.flowNineNineTv_mine);
-        flowFourEightTv_mine = findViewById(R.id.flowFourEightTv_mine);
-
-        serverThreeSixEdit = findViewById(R.id.serverThreeSixEdit);
-        serverFourEightEdit = findViewById(R.id.serverFourEightEdit);
-        serverNineNineEdit = findViewById(R.id.serverNineNineEdit);
-        serverTwoNineNineEdit = findViewById(R.id.serverTwoNineNineEdit);
-        flowTwoFourEdit = findViewById(R.id.flowTwoFourEdit);
-        flowThreeSixEdit = findViewById(R.id.flowThreeSixEdit);
-        flowNineNineEdit = findViewById(R.id.flowNineNineEdit);
-        flowFourEightEdit = findViewById(R.id.flowFourEightEdit);
         mBtnSwitch = findViewById(R.id.swith_btn);
+        Tv1 = findViewById(R.id.Tv1);
+        Tv2 = findViewById(R.id.Tv2);
+        Tv3 = findViewById(R.id.Tv3);
+        Tv4 = findViewById(R.id.Tv4);
+        Tv5 = findViewById(R.id.Tv5);
+        Tv6 = findViewById(R.id.Tv6);
+        Tv7 = findViewById(R.id.Tv7);
+        Tv8 = findViewById(R.id.Tv8);
+        Tv9 = findViewById(R.id.Tv9);
+        Tv10 = findViewById(R.id.Tv10);
+        Tv11 = findViewById(R.id.Tv11);
+        Tv12 = findViewById(R.id.Tv12);
+        Tv13 = findViewById(R.id.Tv13);
+        Tv14 = findViewById(R.id.Tv14);
 
+        Tvv1 = findViewById(R.id.Tvv1);
+        Tvv2 = findViewById(R.id.Tvv2);
+        Tvv3 = findViewById(R.id.Tvv3);
+        Tvv4 = findViewById(R.id.Tvv4);
+        Tvv5 = findViewById(R.id.Tvv5);
+        Tvv6 = findViewById(R.id.Tvv6);
+        Tvv7 = findViewById(R.id.Tvv7);
+        Tvv8 = findViewById(R.id.Tvv8);
+        Tvv9 = findViewById(R.id.Tvv9);
+        Tvv10 = findViewById(R.id.Tvv10);
+        Tvv11 = findViewById(R.id.Tvv11);
+        Tvv12 = findViewById(R.id.Tvv12);
+        Tvv13 = findViewById(R.id.Tvv13);
+        Tvv14 = findViewById(R.id.Tvv14);
+
+        ed1 = findViewById(R.id.ed1);
+        ed2 = findViewById(R.id.ed2);
+        ed3 = findViewById(R.id.ed3);
+        ed4 = findViewById(R.id.ed4);
+        ed5 = findViewById(R.id.ed5);
+        ed6 = findViewById(R.id.ed6);
+        ed7 = findViewById(R.id.ed7);
+        ed8 = findViewById(R.id.ed8);
+        ed9 = findViewById(R.id.ed9);
+        ed10 = findViewById(R.id.ed10);
+        ed11 = findViewById(R.id.ed11);
+        ed12 = findViewById(R.id.ed12);
+        ed13 = findViewById(R.id.ed13);
+        ed14 = findViewById(R.id.ed14);
         posData();
     }
 
@@ -226,50 +262,66 @@ public class HomeTeamRateActivity extends BaseActivity implements View.OnClickLi
                     showToast(3, "选择扫码结算");
                     return;
                 }
-                if (num0 < Integer.parseInt(serverThreeSixEdit.getText().toString().trim())) {
-                    shouLog("111", "----------------");
-                    serverThreeSixEdit.setError("不能大于基本值");
+                if (sNum1 < Integer.parseInt(ed1.getText().toString().trim())) {
+                    ed1.setError("不能大于基本值");
                     return;
                 }
-                if (num1 < Integer.parseInt(serverFourEightEdit.getText().toString().trim())) {
-                    shouLog("222", "----------------");
-                    serverFourEightEdit.setError("不能大于基本值");
+                if (sNum1 < Integer.parseInt(ed1.getText().toString().trim())) {
+                    ed1.setError("不能大于基本值");
                     return;
                 }
-                if (num2 < Integer.parseInt(serverNineNineEdit.getText().toString().trim())) {
-                    shouLog("333", "----------------");
-                    serverNineNineEdit.setError("不能大于基本值");
+                if (sNum2 < Integer.parseInt(ed2.getText().toString().trim())) {
+                    ed2.setError("不能大于基本值");
                     return;
                 }
-                if (num3 < Integer.parseInt(serverTwoNineNineEdit.getText().toString().trim())) {
-                    shouLog("444", "----------------");
-                    serverTwoNineNineEdit.setError("不能大于基本值");
+                if (sNum3 < Integer.parseInt(ed3.getText().toString().trim())) {
+                    ed3.setError("不能大于基本值");
                     return;
                 }
-
-                if (num4 < Integer.parseInt(flowTwoFourEdit.getText().toString().trim())) {
-                    shouLog("555", "----------------");
-                    flowTwoFourEdit.setError("不能大于基本值");
+                if (sNum4 < Integer.parseInt(ed4.getText().toString().trim())) {
+                    ed4.setError("不能大于基本值");
                     return;
                 }
-
-                if (num5 < Integer.parseInt(flowThreeSixEdit.getText().toString().trim())) {
-                    shouLog("666", "----------------");
-                    flowThreeSixEdit.setError("不能大于基本值");
-                    return;
-
-                }
-                if (num6 < Integer.parseInt(flowFourEightEdit.getText().toString().trim())) {
-                    shouLog("777", "----------------");
-                    flowFourEightEdit.setError("不能大于基本值");
+                if (sNum5 < Integer.parseInt(ed5.getText().toString().trim())) {
+                    ed5.setError("不能大于基本值");
                     return;
                 }
-                if (num7 < Integer.parseInt(flowNineNineEdit.getText().toString().trim())) {
-                    shouLog("888", "----------------");
-                    flowNineNineEdit.setError("不能大于基本值");
+                if (sNum6 < Integer.parseInt(ed6.getText().toString().trim())) {
+                    ed6.setError("不能大于基本值");
                     return;
                 }
-
+                if (sNum7 < Integer.parseInt(ed7.getText().toString().trim())) {
+                    ed7.setError("不能大于基本值");
+                    return;
+                }
+                if (sNum8 < Integer.parseInt(ed8.getText().toString().trim())) {
+                    ed8.setError("不能大于基本值");
+                    return;
+                }
+                if (sNum9 < Integer.parseInt(ed9.getText().toString().trim())) {
+                    ed9.setError("不能大于基本值");
+                    return;
+                }
+                if (sNum10 < Integer.parseInt(ed10.getText().toString().trim())) {
+                    ed10.setError("不能大于基本值");
+                    return;
+                }
+                if (sNum11 < Integer.parseInt(ed11.getText().toString().trim())) {
+                    ed11.setError("不能大于基本值");
+                    return;
+                }
+                if (sNum12 < Integer.parseInt(ed12.getText().toString().trim())) {
+                    ed12.setError("不能大于基本值");
+                    return;
+                }
+                if (sNum13 < Integer.parseInt(ed13.getText().toString().trim())) {
+                    ed13.setError("不能大于基本值");
+                    return;
+                }
+                if (sNum14 < Integer.parseInt(ed14.getText().toString().trim())) {
+                    ed14.setError("不能大于基本值");
+                    return;
+                }
                 EditData();
                 break;
             case R.id.iv_back:
@@ -291,41 +343,62 @@ public class HomeTeamRateActivity extends BaseActivity implements View.OnClickLi
                     List<HomeNewFilBean> homeNewFilBeans = gson.fromJson(result.getJSONArray("data").toString(),
                             new TypeToken<List<HomeNewFilBean>>() {
                             }.getType());
-                    serverThreeSixTv.setText(homeNewFilBeans.get(0).getServerName());
-                    serverThreeSixTv_mine.setText("(0~" + homeNewFilBeans.get(0).getServerMoney() + ")");
-                    num0 = Integer.parseInt(homeNewFilBeans.get(0).getServerMoney());
-
-                    serverFourEightTv.setText(homeNewFilBeans.get(1).getServerName());
-                    serverFourEightTv_mine.setText("(0~" + homeNewFilBeans.get(1).getServerMoney() + ")");
-                    num1 = Integer.parseInt(homeNewFilBeans.get(1).getServerMoney());
-
-                    num2 = Integer.parseInt(homeNewFilBeans.get(2).getServerMoney());
-                    serverNineNineTv.setText(homeNewFilBeans.get(2).getServerName());
-                    serverNineNineTv_mine.setText("(0~" + homeNewFilBeans.get(2).getServerMoney() + ")");
-
-
-                    serverTwoNineNineTv.setText(homeNewFilBeans.get(3).getServerName());
-                    serverTwoNineNineTv_mine.setText("(0~" + homeNewFilBeans.get(3).getServerMoney() + ")");
-                    num3 = Integer.parseInt(homeNewFilBeans.get(3).getServerMoney());
-
-
-                    flowTwoFourTv.setText(homeNewFilBeans.get(4).getServerName());
-                    flowTwoFourTv_mine.setText("(0~" + homeNewFilBeans.get(4).getServerMoney() + ")");
-                    num4 = Integer.parseInt(homeNewFilBeans.get(4).getServerMoney());
-
-
-                    flowThreeSixTv.setText(homeNewFilBeans.get(5).getServerName());
-                    flowThreeSixTv_mine.setText("(0~" + homeNewFilBeans.get(5).getServerMoney() + ")");
-                    num5 = Integer.parseInt(homeNewFilBeans.get(5).getServerMoney());
-
-
-                    flowFourEightTv.setText(homeNewFilBeans.get(6).getServerName());
-                    flowFourEightTv_mine.setText("(0~" + homeNewFilBeans.get(6).getServerMoney() + ")");
-                    num6 = Integer.parseInt(homeNewFilBeans.get(6).getServerMoney());
-
-                    flowNineNineTv.setText(homeNewFilBeans.get(7).getServerName());
-                    flowNineNineTv_mine.setText("(0~" + homeNewFilBeans.get(7).getServerMoney() + ")");
-                    num7 = Integer.parseInt(homeNewFilBeans.get(7).getServerMoney());
+                    //24
+                    Tv1.setText(homeNewFilBeans.get(13).getServerName());
+                    Tvv1.setText("(0~" + homeNewFilBeans.get(13).getServerMoney() + ")");
+                    sNum1 = Integer.parseInt(homeNewFilBeans.get(13).getServerMoney());
+                    //36
+                    Tv2.setText(homeNewFilBeans.get(0).getServerName());
+                    Tvv2.setText("(0~" + homeNewFilBeans.get(0).getServerMoney() + ")");
+                    sNum2 = Integer.parseInt(homeNewFilBeans.get(0).getServerMoney());
+                    //48
+                    Tv3.setText(homeNewFilBeans.get(10).getServerName());
+                    Tvv3.setText("(0~" + homeNewFilBeans.get(10).getServerMoney() + ")");
+                    sNum3 = Integer.parseInt(homeNewFilBeans.get(10).getServerMoney());
+                    //49
+                    Tv4.setText(homeNewFilBeans.get(1).getServerName());
+                    Tvv4.setText("(0~" + homeNewFilBeans.get(1).getServerMoney() + ")");
+                    sNum4 = Integer.parseInt(homeNewFilBeans.get(1).getServerMoney());
+                    //60
+                    Tv5.setText(homeNewFilBeans.get(8).getServerName());
+                    Tvv5.setText("(0~" + homeNewFilBeans.get(8).getServerMoney() + ")");
+                    sNum5 = Integer.parseInt(homeNewFilBeans.get(8).getServerMoney());
+                    //99
+                    Tv6.setText(homeNewFilBeans.get(2).getServerName());
+                    Tvv6.setText("(0~" + homeNewFilBeans.get(2).getServerMoney() + ")");
+                    sNum6 = Integer.parseInt(homeNewFilBeans.get(2).getServerMoney());
+                    //199
+                    Tv7.setText(homeNewFilBeans.get(9).getServerName());
+                    Tvv7.setText("(0~" + homeNewFilBeans.get(9).getServerMoney() + ")");
+                    sNum7 = Integer.parseInt(homeNewFilBeans.get(9).getServerMoney());
+                    //299
+                    Tv8.setText(homeNewFilBeans.get(3).getServerName());
+                    Tvv8.setText("(0~" + homeNewFilBeans.get(3).getServerMoney() + ")");
+                    sNum8 = Integer.parseInt(homeNewFilBeans.get(3).getServerMoney());
+                    //399
+                    Tv9.setText(homeNewFilBeans.get(12).getServerName());
+                    Tvv9.setText("(0~" + homeNewFilBeans.get(12).getServerMoney() + ")");
+                    sNum9 = Integer.parseInt(homeNewFilBeans.get(12).getServerMoney());
+                    //24
+                    Tv10.setText(homeNewFilBeans.get(4).getServerName());
+                    Tvv10.setText("(0~" + homeNewFilBeans.get(4).getServerMoney() + ")");
+                    sNum10 = Integer.parseInt(homeNewFilBeans.get(4).getServerMoney());
+                    //36
+                    Tv11.setText(homeNewFilBeans.get(5).getServerName());
+                    Tvv11.setText("(0~" + homeNewFilBeans.get(5).getServerMoney() + ")");
+                    sNum11 = Integer.parseInt(homeNewFilBeans.get(5).getServerMoney());
+                    //48
+                    Tv12.setText(homeNewFilBeans.get(6).getServerName());
+                    Tvv12.setText("(0~" + homeNewFilBeans.get(6).getServerMoney() + ")");
+                    sNum12 = Integer.parseInt(homeNewFilBeans.get(6).getServerMoney());
+                    //60
+                    Tv13.setText(homeNewFilBeans.get(11).getServerName());
+                    Tvv13.setText("(0~" + homeNewFilBeans.get(11).getServerMoney() + ")");
+                    sNum13 = Integer.parseInt(homeNewFilBeans.get(11).getServerMoney());
+                    //99
+                    Tv14.setText(homeNewFilBeans.get(7).getServerName());
+                    Tvv14.setText("(0~" + homeNewFilBeans.get(7).getServerMoney() + ")");
+                    sNum14 = Integer.parseInt(homeNewFilBeans.get(7).getServerMoney());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -348,14 +421,21 @@ public class HomeTeamRateActivity extends BaseActivity implements View.OnClickLi
                 try {
                     JSONObject result = new JSONObject(responseObj.toString());
                     JSONObject data = new JSONObject(result.getJSONObject("data").toString());
-                    serverThreeSixEdit.setText(data.getString("serverThirtySix"));
-                    serverFourEightEdit.setText(data.getString("serverFortyEight"));
-                    serverNineNineEdit.setText(data.getString("serverNinetyNine"));
-                    serverTwoNineNineEdit.setText(data.getString("serverTwoNinetyNine"));
-                    flowTwoFourEdit.setText(data.getString("flowTwoFour"));
-                    flowThreeSixEdit.setText(data.getString("flowThirtySix"));
-                    flowFourEightEdit.setText(data.getString("flowFortyEight"));
-                    flowNineNineEdit.setText(data.getString("flowNinetyNine"));
+
+                    ed1.setText(data.getString("serverTwoFour"));
+                    ed2.setText(data.getString("serverThirtySix"));
+                    ed3.setText(data.getString("serverFortyNine"));
+                    ed4.setText(data.getString("serverFortyEight"));
+                    ed5.setText(data.getString("serverSixty"));
+                    ed6.setText(data.getString("serverNinetyNine"));
+                    ed7.setText(data.getString("serverOneNinetyNine"));
+                    ed8.setText(data.getString("serverTwoNinetyNine"));
+                    ed9.setText(data.getString("serverThreeNinetyNine"));
+                    ed10.setText(data.getString("flowTwoFour"));
+                    ed11.setText(data.getString("flowThirtySix"));
+                    ed12.setText(data.getString("flowFortyEight"));
+                    ed13.setText(data.getString("flowSixty"));
+                    ed14.setText(data.getString("flowNinetyNine"));
                     serverSwitch = data.getString("serverSwitch");
                     if (data.getString("serverSwitch").equals("0")) {
                         mBtnSwitch.setChecked(false);
@@ -381,14 +461,20 @@ public class HomeTeamRateActivity extends BaseActivity implements View.OnClickLi
         params.put("userId", parnterId);
         params.put("rateT0", type1);
         params.put("qrsettleRate", type2);
-        params.put("serverThirtySix", serverThreeSixEdit.getText().toString().trim());
-        params.put("serverFortyEight", serverFourEightEdit.getText().toString().trim());
-        params.put("serverNinetyNine", serverNineNineEdit.getText().toString().trim());
-        params.put("serverTwoNinetyNine", serverTwoNineNineEdit.getText().toString().trim());
-        params.put("flowTwoFour", flowTwoFourEdit.getText().toString().trim());
-        params.put("flowThirtySix", flowThreeSixEdit.getText().toString().trim());
-        params.put("flowFortyEight", flowFourEightEdit.getText().toString().trim());
-        params.put("flowNinetyNine", flowNineNineEdit.getText().toString().trim());
+        params.put("serverTwoFour", ed1.getText().toString().trim());
+        params.put("serverThirtySix", ed2.getText().toString().trim());
+        params.put("serverFortyNine", ed3.getText().toString().trim());
+        params.put("serverFortyEight", ed4.getText().toString().trim());
+        params.put("serverSixty", ed5.getText().toString().trim());
+        params.put("serverNinetyNine", ed6.getText().toString().trim());
+        params.put("serverOneNinetyNine", ed7.getText().toString().trim());
+        params.put("serverTwoNinetyNine", ed8.getText().toString().trim());
+        params.put("serverThreeNinetyNine", ed9.getText().toString().trim());
+        params.put("flowTwoFour", ed10.getText().toString().trim());
+        params.put("flowThirtySix", ed11.getText().toString().trim());
+        params.put("flowFortyEight", ed12.getText().toString().trim());
+        params.put("flowSixty", ed13.getText().toString().trim());
+        params.put("flowNinetyNine", ed14.getText().toString().trim());
         params.put("serverSwitch", serverSwitch);
         HttpRequest.putModifyRate(params, "",new ResponseCallback() {
             @Override

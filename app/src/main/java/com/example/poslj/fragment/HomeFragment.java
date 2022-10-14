@@ -27,6 +27,8 @@ import com.example.poslj.net.HttpRequest;
 import com.example.poslj.net.OkHttpException;
 import com.example.poslj.net.RequestParams;
 import com.example.poslj.net.ResponseCallback;
+import com.example.poslj.newprojectview.ChooseQuoteChannelActivity;
+import com.example.poslj.newprojectview.MeMerchantsSelectActivity;
 import com.example.poslj.useractivity.HomeAdvPictureActivity;
 import com.example.poslj.utils.GlideImageLoader;
 import com.example.poslj.utils.SPUtils;
@@ -209,7 +211,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 if (Code.equals("2")) {
                     showDialog();
                 } else {
-                    startActivity(new Intent(getActivity(), MeMerchantsActivity.class));
+//                    startActivity(new Intent(getActivity(), MeMerchantsActivity.class));
+                    startActivity(new Intent(getActivity(), MeMerchantsSelectActivity.class));
+
                 }
                 break;
             //商户报件
@@ -217,9 +221,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 if (Code.equals("2")) {
                     showDialog();
                 } else {
-                    Intent intent = new Intent(getActivity(),HomeQuoteActivity1.class);
-                    intent.putExtra("type","1");
-                    intent.putExtra("bj_type","no");
+                    Intent intent = new Intent(getActivity(), ChooseQuoteChannelActivity.class);
+//                    Intent intent = new Intent(getActivity(),HomeQuoteActivity1.class);
+//                    intent.putExtra("type","1");
+//                    intent.putExtra("bj_type","no");
                     startActivity(intent);
                 }
                 break;

@@ -26,6 +26,10 @@ public class RequestMode {
         new ResposeDataHandle(callback, clazz));
   }
 
+  public static void getRequest2(String url, RequestParams params,  String token,ResponseCallback callback, Class<?> clazz) {
+    CommonOkHttpClient.get(CommonRequest.createGetRequest2(url,token, params),
+            new ResposeDataHandle(callback, clazz));
+  }
 
   /**
    * POST请求 转换的
