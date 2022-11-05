@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.os.Build;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
@@ -70,5 +71,24 @@ public class Utils {
             overlay.clear();
         }
 
+    }
+
+
+/**
+ * @author:程龙 date; On 2018/8/13
+ */
+
+
+    /**
+     * 手机是否开启位置服务，如果没有开启那么所有app将不能使用定位功能
+     */
+    public static boolean isLocServiceEnable(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (gps || network) {
+            return true;
+        }
+        return false;
     }
 }

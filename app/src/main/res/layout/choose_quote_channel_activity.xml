@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="35dp"
             android:layout_marginTop="35dp"
-            android:text="鑫收宝报件"
+            android:text="商户入网（新版4G）"
             android:textColor="#2595FF"
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="parent"

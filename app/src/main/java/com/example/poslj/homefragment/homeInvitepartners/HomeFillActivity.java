@@ -348,8 +348,8 @@ public class HomeFillActivity extends BaseActivity implements View.OnClickListen
                     type2 = data.getJSONObject("qrsettleRate").getString("id");
                     ed1.setText(data.getString("serverTwoFour"));
                     ed2.setText(data.getString("serverThirtySix"));
-                    ed3.setText(data.getString("serverFortyNine"));
-                    ed4.setText(data.getString("serverFortyEight"));
+                    ed3.setText(data.getString("serverFortyEight"));
+                    ed4.setText(data.getString("serverFortyNine"));
                     ed5.setText(data.getString("serverSixty"));
                     ed6.setText(data.getString("serverNinetyNine"));
                     ed7.setText(data.getString("serverOneNinetyNine"));
@@ -387,8 +387,8 @@ public class HomeFillActivity extends BaseActivity implements View.OnClickListen
         params.put("qrsettleRate", type2);
         params.put("serverTwoFour", ed1.getText().toString().trim());
         params.put("serverThirtySix", ed2.getText().toString().trim());
-        params.put("serverFortyNine", ed3.getText().toString().trim());
-        params.put("serverFortyEight", ed4.getText().toString().trim());
+        params.put("serverFortyEight", ed3.getText().toString().trim());
+        params.put("serverFortyNine", ed4.getText().toString().trim());
         params.put("serverSixty", ed5.getText().toString().trim());
         params.put("serverNinetyNine", ed6.getText().toString().trim());
         params.put("serverOneNinetyNine", ed7.getText().toString().trim());
@@ -434,8 +434,8 @@ public class HomeFillActivity extends BaseActivity implements View.OnClickListen
         params.put("qrsettleRate", type2);
         params.put("serverTwoFour", ed1.getText().toString().trim());
         params.put("serverThirtySix", ed2.getText().toString().trim());
-        params.put("serverFortyNine", ed3.getText().toString().trim());
-        params.put("serverFortyEight", ed4.getText().toString().trim());
+        params.put("serverFortyEight", ed3.getText().toString().trim());
+        params.put("serverFortyNine", ed4.getText().toString().trim());
         params.put("serverSixty", ed5.getText().toString().trim());
         params.put("serverNinetyNine", ed6.getText().toString().trim());
         params.put("serverOneNinetyNine", ed7.getText().toString().trim());

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.allenliu.versionchecklib.core.http.HttpHeaders;
 import com.allenliu.versionchecklib.core.http.HttpParams;
 import com.allenliu.versionchecklib.core.http.HttpRequestMethod;
 import com.allenliu.versionchecklib.v2.AllenVersionChecker;
@@ -28,6 +29,8 @@ import com.example.poslj.utils.StatusBarUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import okhttp3.Request;
 
 import static com.example.poslj.utils.VersionUtils.crateUIData;
 import static com.example.poslj.utils.VersionUtils.createCustomDialogTwo;
@@ -64,6 +67,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             Manifest.permission.READ_EXTERNAL_STORAGE,
             //通知权限
             Manifest.permission.ACCESS_NOTIFICATION_POLICY,
+            //定位
+            Manifest.permission.ACCESS_FINE_LOCATION
 
     };
 
@@ -176,6 +181,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 //                    .setRequestUrl(Urls.commUrls + "noauth/getVersionInfo")
 
     private void sendRequest() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Authorization",getToken());
         HttpParams params = new HttpParams();
         params.put("suffix","20220815112804");
         AllenVersionChecker
@@ -183,6 +190,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 .getInstance()
                 //请求版本
                 .requestVersion()
+                //添加token
+                .setHttpHeaders(headers)
                 //设置请求方法 GET、POST
                 .setRequestMethod(HttpRequestMethod.GET)
                 //请求值

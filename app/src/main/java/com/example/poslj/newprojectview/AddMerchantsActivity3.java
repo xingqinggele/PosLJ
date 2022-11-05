@@ -148,14 +148,7 @@ public class AddMerchantsActivity3 extends BaseActivity implements View.OnClickL
 
     /************* 弹框  ****************/
 
-    /**************  地图定位  ****************/
 
-    private AMapLocationClient locationClient = null;
-    private AMapLocationClientOption locationOption = null;
-    private String Longitude = ""; //经
-    private String Latitude = "";//纬度
-
-    /**************  地图定位  ****************/
 
     /**************  接受数据  ****************/
     private String applicant;
@@ -182,7 +175,13 @@ public class AddMerchantsActivity3 extends BaseActivity implements View.OnClickL
     /**************  接受数据  ****************/
     private boolean isBank = true;
     private boolean isBankSite = true;
-
+    //经度
+    private String Longitude = "";
+    //维度
+    private String Latitude = "";
+    private String provinceName;  // 省名称
+    private String cityName;  // 市名称
+    private String areaName;  // 区名称
     @Override
     protected int getLayoutId() {
         //设置状态栏颜色
@@ -200,10 +199,6 @@ public class AddMerchantsActivity3 extends BaseActivity implements View.OnClickL
         transferManager = new TransferManager(cosXmlService, transferConfig);
         //初始化选择省市区
         provinceView = new ProvinceView(this, AddMerchantsActivity3.this);
-        //初始化定位
-        initLocation();
-        //开启定位
-        startLocation();
         id_card_is = findViewById(R.id.id_card_is);
         bNumber = findViewById(R.id.b_number);
         submit_bt = findViewById(R.id.submit_bt);
@@ -219,151 +214,8 @@ public class AddMerchantsActivity3 extends BaseActivity implements View.OnClickL
 
     }
 
-    //初始化定位
-    private void initLocation() {
-        AMapLocationClient.updatePrivacyShow(this, true, true);
-        AMapLocationClient.updatePrivacyAgree(this, true);
-        //初始化client
-        try {
-            locationClient = new AMapLocationClient(this.getApplicationContext());
-            locationOption = getDefaultOption();
-            //设置定位参数
-            locationClient.setLocationOption(locationOption);
-            // 设置定位监听
-            locationClient.setLocationListener(locationListener);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 定位监听
-     */
-    AMapLocationListener locationListener = new AMapLocationListener() {
-        @Override
-        public void onLocationChanged(AMapLocation location) {
-            if (null != location) {
-                StringBuffer sb = new StringBuffer();
-                //errCode等于0代表定位成功，其他的为定位失败，具体的可以参照官网定位错误码说明
-                if (location.getErrorCode() == 0) {
-                    Longitude = location.getLongitude() + "";
-                    Latitude = location.getLatitude() + "";
-                    sb.append("定位成功" + "\n");
-                    sb.append("定位类型: " + location.getLocationType() + "\n");
-                    sb.append("经    度    : " + location.getLongitude() + "\n");
-                    sb.append("纬    度    : " + location.getLatitude() + "\n");
-                    sb.append("精    度    : " + location.getAccuracy() + "米" + "\n");
-                    sb.append("提供者    : " + location.getProvider() + "\n");
-
-                    sb.append("速    度    : " + location.getSpeed() + "米/秒" + "\n");
-                    sb.append("角    度    : " + location.getBearing() + "\n");
-                    // 获取当前提供定位服务的卫星个数
-                    sb.append("星    数    : " + location.getSatellites() + "\n");
-                    sb.append("国    家    : " + location.getCountry() + "\n");
-                    sb.append("省            : " + location.getProvince() + "\n");
-                    sb.append("市            : " + location.getCity() + "\n");
-                    sb.append("城市编码 : " + location.getCityCode() + "\n");
-                    sb.append("区            : " + location.getDistrict() + "\n");
-                    sb.append("区域 码   : " + location.getAdCode() + "\n");
-                    sb.append("地    址    : " + location.getAddress() + "\n");
-                    sb.append("兴趣点    : " + location.getPoiName() + "\n");
-                    //成功之后停止定位
-                    stopLocation();
-                    shouLog("地址信息1：", sb.toString());
-                } else {
-                    //定位失败
-                    sb.append("定位失败" + "\n");
-                    sb.append("错误码:" + location.getErrorCode() + "\n");
-                    sb.append("错误信息:" + location.getErrorInfo() + "\n");
-                    sb.append("错误描述:" + location.getLocationDetail() + "\n");
-                   // startLocation();
-                }
-
-                //解析定位结果，
-                String result = sb.toString();
-                shouLog("地址信息2：", sb.toString());
-            } else {
-
-            }
-        }
-    };
-
-    /**
-     * 开始定位
-     *
-     * @author hongming.wang
-     * @since 2.8.0
-     */
-    private void startLocation() {
-        try {
-            // 设置定位参数
-            locationClient.setLocationOption(locationOption);
-            // 启动定位
-            locationClient.startLocation();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * 停止定位
-     *
-     * @author hongming.wang
-     * @since 2.8.0
-     */
-    private void stopLocation() {
-        try {
-            // 停止定位
-            locationClient.stopLocation();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * 销毁定位
-     *
-     * @author hongming.wang
-     * @since 2.8.0
-     */
-    private void destroyLocation() {
-        if (null != locationClient) {
-            /**
-             * 如果AMapLocationClient是在当前Activity实例化的，
-             * 在Activity的onDestroy中一定要执行AMapLocationClient的onDestroy
-             */
-            locationClient.onDestroy();
-            locationClient = null;
-            locationOption = null;
-        }
-    }
 
 
-    /**
-     * 默认的定位参数
-     *
-     * @author hongming.wang
-     * @since 2.8.0
-     */
-    private AMapLocationClientOption getDefaultOption() {
-        AMapLocationClientOption mOption = new AMapLocationClientOption();
-        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
-        mOption.setGpsFirst(true);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
-        mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
-        mOption.setInterval(2000);//可选，设置定位间隔。默认为2秒
-        mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
-        mOption.setOnceLocation(true);//可选，设置是否单次定位。默认是false
-        mOption.setOnceLocationLatest(false);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
-        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
-        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
-        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
-        mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
-        mOption.setGeoLanguage(AMapLocationClientOption.GeoLanguage.DEFAULT);//可选，设置逆地理信息的语言，默认值为默认语言（根据所在地区选择语言）
-        return mOption;
-    }
 
     @Override
     protected void initListener() {
@@ -397,6 +249,12 @@ public class AddMerchantsActivity3 extends BaseActivity implements View.OnClickL
         certificateNo = getIntent().getStringExtra("fNumber");
         certificateStartDate = getIntent().getStringExtra("startTime");
         certificateEndDate = getIntent().getStringExtra("endTime");
+
+        Longitude = getIntent().getStringExtra("Longitude");
+        Latitude = getIntent().getStringExtra("Latitude");
+        provinceName = getIntent().getStringExtra("provinceName");
+        cityName = getIntent().getStringExtra("cityName");
+        areaName = getIntent().getStringExtra("areaName");
     }
 
     @Override
@@ -577,7 +435,7 @@ public class AddMerchantsActivity3 extends BaseActivity implements View.OnClickL
         params.put("clientServicePhoneNo", clientServicePhoneNo);
         //费率ID
         params.put("feeId", rateId);
-
+        //SN
         params.put("posCode", PosCode);
         //商户简写
         params.put("merchantShortHand", merchantShortHand);
@@ -629,6 +487,12 @@ public class AddMerchantsActivity3 extends BaseActivity implements View.OnClickL
         params.put("activeLatitude", Longitude);
         //商户活体检测地址经度
         params.put("activeLongitude", Latitude);
+        //省名称
+        params.put("provinceName", provinceName);
+        //市名称
+        params.put("cityName", cityName);
+        //区名称
+        params.put("areaName", areaName);
         shouLog("提交的值-------------->", params.toString());
         HttpRequest.getPosPOperation(params, getToken(), new ResponseCallback() {
             @Override
@@ -731,15 +595,6 @@ public class AddMerchantsActivity3 extends BaseActivity implements View.OnClickL
             bNumber.setText(bankCardInfo.getCardNo());
         }
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        OcrSDKKit.getInstance().release();
-        destroyLocation();
-
-    }
-
 
     /**
      * 弹出框

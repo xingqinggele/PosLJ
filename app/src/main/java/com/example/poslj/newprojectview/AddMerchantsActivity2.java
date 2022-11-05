@@ -109,6 +109,12 @@ public class AddMerchantsActivity2 extends BaseActivity implements View.OnClickL
     private PopupWindow popWindow;
     private View popView;
 
+
+    private String Longitude = "";
+    private String Latitude = "";
+    private String provinceName;  // 省名称
+    private String cityName;  // 市名称
+    private String areaName;  // 区名称
     @Override
     protected int getLayoutId() {
         //设置状态栏颜色
@@ -153,6 +159,11 @@ public class AddMerchantsActivity2 extends BaseActivity implements View.OnClickL
         province = getIntent().getStringExtra("province");
         city = getIntent().getStringExtra("city");
         area = getIntent().getStringExtra("area");
+        Longitude = getIntent().getStringExtra("Longitude");
+        Latitude = getIntent().getStringExtra("Latitude");
+        provinceName = getIntent().getStringExtra("provinceName");
+        cityName = getIntent().getStringExtra("cityName");
+        areaName = getIntent().getStringExtra("areaName");
     }
 
     @Override
@@ -222,6 +233,11 @@ public class AddMerchantsActivity2 extends BaseActivity implements View.OnClickL
                 intent.putExtra("province", province);
                 intent.putExtra("city", city);
                 intent.putExtra("area", area);
+                intent.putExtra("Longitude", Longitude);
+                intent.putExtra("Latitude", Latitude);
+                intent.putExtra("provinceName", provinceName);
+                intent.putExtra("cityName", cityName);
+                intent.putExtra("areaName", areaName);
                 /*****第一页数据******************/
                 intent.putExtra("IdUrl1", IdCard1_Url);
                 intent.putExtra("IdUrl2", IdCard2_Url);

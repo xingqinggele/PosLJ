@@ -20,6 +20,23 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+
+    <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+
+    <!--用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"></uses-permission>
+    <!--如果设置了target >= 28 如果需要启动后台定位则必须声明这个权限-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!--如果您的应用需要后台定位权限，且有可能运行在Android Q设备上,并且设置了target>28，必须增加这个权限声明-->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
     <application
         android:name=".app.MyApp"
         android:allowBackup="true"
@@ -30,7 +47,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:allowBackup,android:label">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="28ab484cb07f03dc505f5cf352e9c5ce" />
 
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        <service android:name="com.amap.api.location.APSService" />
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

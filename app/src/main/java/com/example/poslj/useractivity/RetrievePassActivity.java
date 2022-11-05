@@ -75,7 +75,7 @@ public class RetrievePassActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.retrieve_pass_tv_mCode:
-                if (isChinaPhoneLegal(retrieve_pass_et_userName.getText().toString().trim())) {
+                if (!TextUtils.isEmpty(retrieve_pass_et_userName.getText().toString().trim())) {
                     //发送短信
                     getPhoneCode1(retrieve_pass_et_userName.getText().toString().trim());
                 } else {
@@ -83,7 +83,7 @@ public class RetrievePassActivity extends BaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.retrieve_pass_btn:
-                if (!isChinaPhoneLegal(retrieve_pass_et_userName.getText().toString().trim())) {
+                if (TextUtils.isEmpty(retrieve_pass_et_userName.getText().toString().trim())) {
                     Toast.makeText(RetrievePassActivity.this, "请输入正确的手机号", Toast.LENGTH_LONG).show();
                     return;
                 }
