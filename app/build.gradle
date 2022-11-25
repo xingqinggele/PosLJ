@@ -10,8 +10,8 @@ android {
         applicationId "com.example.poslj"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 13
-        versionName "2.1.0"
+        versionCode 17
+        versionName "2.5.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

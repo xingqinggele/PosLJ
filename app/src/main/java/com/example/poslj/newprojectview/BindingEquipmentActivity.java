@@ -63,7 +63,7 @@ public class BindingEquipmentActivity extends BaseActivity implements View.OnCli
                 finish();
                 break;
             case R.id.bindEquipment_btn:
-                bindTap(mcId,snCode);
+                bindTap(mcId,equipment_num.getText().toString().trim());
                 break;
         }
     }

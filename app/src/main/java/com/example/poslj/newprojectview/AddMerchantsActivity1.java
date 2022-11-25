@@ -304,7 +304,7 @@ public class AddMerchantsActivity1 extends BaseActivity implements View.OnClickL
      */
     private AMapLocationClientOption getDefaultOption() {
         AMapLocationClientOption mOption = new AMapLocationClientOption();
-        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
         mOption.setGpsFirst(true);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
         mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
         mOption.setInterval(2000);//可选，设置定位间隔。默认为2秒
@@ -410,10 +410,6 @@ public class AddMerchantsActivity1 extends BaseActivity implements View.OnClickL
                     rateBeans = gson.fromJson(result.getJSONArray("data").toString(),
                             new TypeToken<List<NewRateBean>>() {
                             }.getType());
-                    if (rateBeans.size() > 0) {
-                        rateId = rateBeans.get(0).getFeeId();
-                        feilv_tv.setText(rateBeans.get(0).getFeeValue());
-                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

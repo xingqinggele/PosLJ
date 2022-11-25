@@ -423,7 +423,6 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
             quote_xy_card_name.setText(result.getString("bankCardHolder"));
             quote_xy_phone.setText(result.getString("bankCardPhone"));
             feilv_tv.setText(result.getString("feeValue"));
-            rateId = result.getString("feeId");
             url4 = result.getString("bankCardPic");
         } catch (JSONException e) {
             e.printStackTrace();

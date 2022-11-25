@@ -53,7 +53,19 @@ public class QuoteAdapter extends BaseQuickAdapter<QuoteBean, BaseViewHolder> {
         if (item.getType().equals("1")){
             isFaill = false;
             bind = false;
-            if (item.getIsAudit().equals("1")){
+            if (item.getIsAudit().equals("-2")) {
+                title = "商户不存在";
+                color = "#DC143C";
+                repair = false;
+            } else if (item.getIsAudit().equals("-1")) {
+                title = "待完善资料";
+                color = "#DC143C";
+                repair = false;
+            } else if (item.getIsAudit().equals("0")) {
+                title = "待审核";
+                color = "#3CA0FF";
+                repair = false;
+            }else if (item.getIsAudit().equals("1")){
                 title = "报件失败";
                 color = "#DC143C";
                 repair = true;
@@ -67,6 +79,14 @@ public class QuoteAdapter extends BaseQuickAdapter<QuoteBean, BaseViewHolder> {
                 edit_test = "修改";
                 color = "#29D385";
                 repair = true;
+            }else if (item.getIsAudit().equals("11")) {
+                title = "注销申请";
+                color = "#E73118";
+                repair = false;
+            } else if (item.getIsAudit().equals("12")) {
+                title = "注销成功";
+                color = "#E73118";
+                repair = false;
             }
 
         }else {

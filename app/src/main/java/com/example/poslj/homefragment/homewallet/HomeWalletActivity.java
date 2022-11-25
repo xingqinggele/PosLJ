@@ -247,7 +247,7 @@ public class HomeWalletActivity extends BaseActivity implements View.OnClickList
                 try {
                     JSONObject object = new JSONObject(responseObj.toString());
                     Signing = object.getString("data");
-                    if (!Signing.equals("3")) {
+                    if (!Signing.equals("2")) {
                         ret_msg = object.getString("ret_msg");
                     }
                 } catch (JSONException e) {

@@ -178,8 +178,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     /*****************版本更新--->请求接口************/
 //请求服务器、版本更新 地址：http://www.poshb.cn:8081/noauth/getVersionInfo
-//                    .setRequestUrl(Urls.commUrls + "noauth/getVersionInfo")
-
     private void sendRequest() {
         HttpHeaders headers = new HttpHeaders();
         headers.put("Authorization",getToken());
@@ -205,7 +203,30 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     @Override
                     public UIData onRequestVersionSuccess(String result) {
                         //根据请求返回数据做判断，大于当前版本开始升级  小于等于当前版本不升级 提示当前是最新版本
-                      ceshi(result);
+                        try {
+                            shouLog("返回值----->",result);
+                            //String 转 JSONObject
+                            JSONObject object = new JSONObject(result);
+                            //服务器返回的版本号
+                            int sCode = Integer.valueOf(object.getJSONObject("data").getString("code"));
+                            shouLog("object", sCode + "");
+                            //apk下载地址
+                            String sUrl = object.getJSONObject("data").getString("url");
+                            //服务器返回的版本名称
+                            String sUpTitle = "V" + object.getJSONObject("data").getString("name");
+                            //服务器返回的版本介绍内容
+                            String sUpContext = object.getJSONObject("data").getString("descs");
+                            //判断当前版本是否 大于等于 服务器版本
+                            if (ver_code >= sCode) {
+                                // 不用更新
+                                return null;
+                            } else {
+                                //提示用户去升级版本
+                                return crateUIData(sUrl, sUpTitle, sUpContext);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         return null;
                     }
 
@@ -226,34 +247,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 //执行任务
                 .executeMission(this);
     }
-
-    private void ceshi(String result) {
-        shouLog("版本信息--->",result);
-        try {
-            //String 转 JSONObject
-            JSONObject object = new JSONObject(result);
-            //服务器返回的版本号
-            int sCode = Integer.valueOf(object.getJSONObject("data").getString("code"));
-            shouLog("object", sCode + "");
-            //apk下载地址
-            String sUrl = object.getJSONObject("data").getString("url");
-            //服务器返回的版本名称
-            String sUpTitle = "V" + object.getJSONObject("data").getString("name");
-            //服务器返回的版本介绍内容
-            String sUpContext = object.getJSONObject("data").getString("descs");
-            //判断当前版本是否 大于等于 服务器版本
-            if (ver_code >= sCode) {
-                // 不用更新
-                //return null;
-            } else {
-                //提示用户去升级版本
-                //return crateUIData(sUrl, sUpTitle, sUpContext);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
     /************退出软件**************/
     @Override
     public void onBackPressed() {

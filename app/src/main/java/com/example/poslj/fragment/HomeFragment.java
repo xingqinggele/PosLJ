@@ -29,6 +29,7 @@ import com.example.poslj.net.RequestParams;
 import com.example.poslj.net.ResponseCallback;
 import com.example.poslj.newprojectview.ChooseQuoteChannelActivity;
 import com.example.poslj.newprojectview.MeMerchantsSelectActivity;
+import com.example.poslj.newprojectview.NewMeQuoteActivity;
 import com.example.poslj.useractivity.HomeAdvPictureActivity;
 import com.example.poslj.utils.GlideImageLoader;
 import com.example.poslj.utils.SPUtils;
@@ -212,7 +213,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                     showDialog();
                 } else {
 //                    startActivity(new Intent(getActivity(), MeMerchantsActivity.class));
-                    startActivity(new Intent(getActivity(), MeMerchantsSelectActivity.class));
+//                    startActivity(new Intent(getActivity(), MeMerchantsSelectActivity.class));
+                    startActivity(new Intent(getActivity(), NewMeQuoteActivity.class));
+
 
                 }
                 break;

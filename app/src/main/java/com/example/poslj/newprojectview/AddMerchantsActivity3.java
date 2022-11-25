@@ -484,9 +484,9 @@ public class AddMerchantsActivity3 extends BaseActivity implements View.OnClickL
         //商户活体检测地址
         params.put("activeAddress", address);
         //商户活体检测地址纬度
-        params.put("activeLatitude", Longitude);
+        params.put("activeLatitude", Latitude);
         //商户活体检测地址经度
-        params.put("activeLongitude", Latitude);
+        params.put("activeLongitude", Longitude);
         //省名称
         params.put("provinceName", provinceName);
         //市名称

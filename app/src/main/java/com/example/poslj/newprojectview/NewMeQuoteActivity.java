@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.poslj.R;
 import com.example.poslj.base.BaseActivity;
+import com.example.poslj.homefragment.homemerchants.memerchants.activity.MeMerchantsDetailActivity;
 import com.example.poslj.net.HttpRequest;
 import com.example.poslj.net.OkHttpException;
 import com.example.poslj.net.RequestParams;
@@ -147,7 +148,13 @@ public class NewMeQuoteActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //点击Item事件
-
+                //点击Item事件
+                if (mData.get(position).getType().equals("1")) {
+                    //点击Item事件
+                    Intent intent = new Intent(NewMeQuoteActivity.this, MeMerchantsDetailActivity.class);
+                    intent.putExtra("MeMerchants_id", mData.get(position).getMerchCode());
+                    startActivity(intent);
+                }
             }
         });
         //请求接口

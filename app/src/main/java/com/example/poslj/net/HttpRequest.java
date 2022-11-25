@@ -381,21 +381,9 @@ public class HttpRequest {
      * @param params
      * @param callback
      */
-    public static void getSubmit_orders(RequestParams params,String token, ResponseCallback callback) {
-        RequestMode.postRequest(Urls.commUrls + "pos/api/v2/integral/order", params,token,callback, null);
-    }
-    /**
-     * 提交兑换积分订单
-     *
-     * @param params
-     * @param callback
-     */
     public static void getSubmit_orderList(RequestParams params,List<OrderBean> list,ResponseCallback callback) {
         RequestMode.postRequest3(Urls.commUrls + "pos/api/v2/integral/cart/order", params,list,callback, null);
     }
-
-
-
 
     /**
      * 获取订单列表
@@ -440,18 +428,6 @@ public class HttpRequest {
     }
 
 
-
-    /**
-     * 获取我的商户列表详情 -- 设备
-     *
-     * @param params
-     * @param callback
-     */
-    public static void getMeMerchants_detailEquipment(RequestParams params,String token, ResponseCallback callback) {
-        RequestMode.postRequest(Urls.commUrls + "pos/api/v2/merchant/queryEquipmentInfo", params,token,callback, null);
-    }
-
-
     /**
      * 获取我的商户列表详情 -- 交易
      *
@@ -484,27 +460,6 @@ public class HttpRequest {
     }
 
     /**
-     * 提交提现接口
-     *
-     * @param params
-     * @param callback
-     */
-    public static void getPayWithdrawal(RequestParams params,String token, ResponseCallback callback) {
-        RequestMode.postRequest(Urls.commUrls + "pos/api/v2/payment/doCashOut", params,token,callback, null);
-    }
-
-    /**
-     * 提交新提现接口
-     *
-     * @param params
-     * @param callback
-     */
-    public static void getNewPayWithdrawal(RequestParams params,String token, ResponseCallback callback) {
-        RequestMode.postRequest(Urls.commUrls + "pos/receiver/pay", params,token,callback, null);
-    }
-
-
-    /**
      * 提交新提现接口
      *
      * @param params
@@ -512,19 +467,6 @@ public class HttpRequest {
      */
     public static void getWithdrawal(RequestParams params,String token, ResponseCallback callback) {
         RequestMode.postRequest(Urls.commUrls + "xinLong/signed/withdrawal/submitGrantDetail", params,token,callback, null);
-    }
-
-
-
-
-    /**
-     * 签约接口
-     *
-     * @param params
-     * @param callback
-     */
-    public static void getSigningTo(RequestParams params,String token, ResponseCallback callback) {
-        RequestMode.postRequest(Urls.commUrls + "pos/receiver/addReceiver", params,token,callback, null);
     }
 
 
@@ -557,9 +499,6 @@ public class HttpRequest {
     public static void getTotalAmount(RequestParams params,String token, ResponseCallback callback) {
         RequestMode.postRequest(Urls.commUrls + "pos/api/v2/merchant/getAllTransInfo", params,token,callback, null);
     }
-
-
-
     /**
      * 我的收益
      *
@@ -748,15 +687,6 @@ public class HttpRequest {
         RequestMode.postRequest(Urls.commUrls + "pos/api/v2/integral/get/posBrandType", params,token,callback, null);
     }
 
-  /**
-     * 获取设备类型
-     *
-     * @param params
-     * @param callback
-     */
-    public static void getPosType(RequestParams params,String token, ResponseCallback callback) {
-        RequestMode.postRequest(Urls.commUrls + "pos/api/v2/integral/get/posType", params,token,callback, null);
-    }
     /**
      * 终端查询设备类型
      *
@@ -777,9 +707,6 @@ public class HttpRequest {
     public static void getOrderType(RequestParams params,String token, ResponseCallback callback) {
         RequestMode.postRequest(Urls.commUrls + "pos/api/v2/order/status", params,token,callback, null);
     }
-
-
-
  /**
      *
      *
@@ -827,7 +754,7 @@ public class HttpRequest {
      * @param callback
      */
     public static void getSigning(RequestParams params,String token, ResponseCallback callback) {
-        RequestMode.postRequest(Urls.commUrls + "pos/receiver/echoReceiver", params,token,callback, null);
+        RequestMode.postRequest(Urls.commUrls + "xinLong/signed/withdrawal/echoReceiver", params, token, callback, null);
     }
 
 
@@ -850,15 +777,7 @@ public class HttpRequest {
         RequestMode.postRequest(Urls.commUrls + "pos/api/v1/merchant/query/entry", params,token,callback, null);
     }
 
-/**
-     * 商户报件上传
-     *
-     * @param params
-     * @param callback
-     */
-    public static void getOperation(RequestParams params,String token, ResponseCallback callback) {
-        RequestMode.postRequest(Urls.commUrls + "noauth/posv1/Operation", params,token,callback, null);
-    }
+
     /**
      * 商户报件修改
      *
@@ -918,16 +837,6 @@ public class HttpRequest {
         RequestMode.postRequest(Urls.commUrls + "pos/api/v2/merchant/modifyRate", params,token,callback, null);
     }
 
-
-// /**
-//     * 交易记录列表
-//     *
-//     * @param params
-//     * @param callback
-//     */
-//    public static void putRecordList(RequestParams params,String token, ResponseCallback callback) {
-//        RequestMode.postRequest(Urls.commUrls + "merchant/transactions/record", params,token,callback, null);
-//    }
 /**
      * 交易记录列表
      *
@@ -939,7 +848,7 @@ public class HttpRequest {
     }
 
  /**
-     * 交易记录列表
+     * 费率
      *
      * @param params
      * @param callback
