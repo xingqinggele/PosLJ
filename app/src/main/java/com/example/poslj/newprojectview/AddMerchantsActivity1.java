@@ -344,7 +344,7 @@ public class AddMerchantsActivity1 extends BaseActivity implements View.OnClickL
                 showCityPicker();
                 break;
             case R.id.submit_bt:
-                Intent intent = new Intent(AddMerchantsActivity1.this, AddMerchantsActivity2.class);
+//                Intent intent = new Intent(AddMerchantsActivity1.this, AddMerchantsActivity2.class);
                 if (TextUtils.isEmpty(quote_posCode.getText().toString().trim())) {
                     showToast(3, "请输入SN");
                     return;
@@ -375,22 +375,23 @@ public class AddMerchantsActivity1 extends BaseActivity implements View.OnClickL
                     showToast(3, loctionEorr);
                     return;
                 }
-                intent.putExtra("quote_contact_name", quote_contact_name.getText().toString().trim());
-                intent.putExtra("quote_shop_jname", quote_contact_name.getText().toString().trim());
-                intent.putExtra("PosCode", quote_posCode.getText().toString().trim());
-                intent.putExtra("rateId", rateId);
-                intent.putExtra("quote_phone", quote_phone.getText().toString().trim());
-                intent.putExtra("quote_service_phone", quote_phone.getText().toString().trim());
-                intent.putExtra("quote_address", quote_address.getText().toString().trim());
-                intent.putExtra("province", province);
-                intent.putExtra("city", city);
-                intent.putExtra("area", area);
-                intent.putExtra("Longitude", Longitude);
-                intent.putExtra("Latitude", Latitude);
-                intent.putExtra("provinceName", provinceName);
-                intent.putExtra("cityName", cityName);
-                intent.putExtra("areaName", areaName);
-                startActivity(intent);
+//                intent.putExtra("quote_contact_name", quote_contact_name.getText().toString().trim());
+//                intent.putExtra("quote_shop_jname", quote_contact_name.getText().toString().trim());
+//                intent.putExtra("PosCode", quote_posCode.getText().toString().trim());
+//                intent.putExtra("rateId", rateId);
+//                intent.putExtra("quote_phone", quote_phone.getText().toString().trim());
+//                intent.putExtra("quote_service_phone", quote_phone.getText().toString().trim());
+//                intent.putExtra("quote_address", quote_address.getText().toString().trim());
+//                intent.putExtra("province", province);
+//                intent.putExtra("city", city);
+//                intent.putExtra("area", area);
+//                intent.putExtra("Longitude", Longitude);
+//                intent.putExtra("Latitude", Latitude);
+//                intent.putExtra("provinceName", provinceName);
+//                intent.putExtra("cityName", cityName);
+//                intent.putExtra("areaName", areaName);
+//                startActivity(intent);
+                getMerchantInfoRecord(quote_posCode.getText().toString().trim());
                 break;
             case R.id.feilv_relative:
                 showDialog(rateBeans);
@@ -814,4 +815,60 @@ public class AddMerchantsActivity1 extends BaseActivity implements View.OnClickL
         });
     }
     /***************************************** 获取省市区功能结束 --（代码太繁琐后期要优化）***************************************************************/
+
+    /**
+     * 判断sn是否存在
+     *
+     * @param snCode
+     */
+    private void getMerchantInfoRecord(String snCode) {
+        RequestParams params = new RequestParams();
+        params.put("posCode", snCode);
+        HttpRequest.posMerchantInfoRecord(params, getToken(), new ResponseCallback() {
+            @Override
+            public void onSuccess(Object responseObj) {
+                onSuccTest(responseObj);
+            }
+
+            @Override
+            public void onFailure(OkHttpException failuer) {
+                Failuer(failuer.getEcode(), failuer.getEmsg());
+            }
+        });
+    }
+
+    /**
+     * 接口返回处理
+     *
+     * @param responseObj
+     */
+    private void onSuccTest(Object responseObj) {
+        Intent intent = new Intent(AddMerchantsActivity1.this, AddMerchantsActivity2.class);
+        try {
+            JSONObject result = new JSONObject(responseObj.toString());
+            if (result.getString("data").equals("1")) {
+                showToast(3, "此SN已占用");
+            } else {
+                intent.putExtra("quote_contact_name", quote_contact_name.getText().toString().trim());
+                intent.putExtra("quote_shop_jname", quote_contact_name.getText().toString().trim());
+                intent.putExtra("PosCode", quote_posCode.getText().toString().trim());
+                intent.putExtra("rateId", rateId);
+                intent.putExtra("quote_phone", quote_phone.getText().toString().trim());
+                intent.putExtra("quote_service_phone", quote_phone.getText().toString().trim());
+                intent.putExtra("quote_address", quote_address.getText().toString().trim());
+                intent.putExtra("province", province);
+                intent.putExtra("city", city);
+                intent.putExtra("area", area);
+                intent.putExtra("Longitude", Longitude);
+                intent.putExtra("Latitude", Latitude);
+                intent.putExtra("provinceName", provinceName);
+                intent.putExtra("cityName", cityName);
+                intent.putExtra("areaName", areaName);
+                startActivity(intent);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

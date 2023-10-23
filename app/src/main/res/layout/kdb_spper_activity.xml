@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <!--标题框-->
+    <RelativeLayout
+        android:id="@+id/title_top_relative"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/new_theme_color">
+        <!--返回键-->
+        <LinearLayout
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="25dp"
+                android:padding="5dp"
+                android:src="@mipmap/back_whilte_left" />
+
+        </LinearLayout>
+        <!--标题-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="商户进件"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <!--内容部分-->
+    <ScrollView
+        android:id="@+id/scro_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/submit_bt"
+        android:layout_below="@+id/title_top_relative"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="14dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical">
+
+            <com.example.poslj.views.MyGridView
+                android:id="@+id/newspaper_grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="2"
+                android:verticalSpacing="5dp"
+             />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#F3F3F3" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="机具编号"
+                    android:textColor="#302F2F"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/newspaper_posCode_ed"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/newspaper_posCode_ed" />
+
+                <EditText
+                    android:id="@+id/newspaper_posCode_ed"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入SN"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv1"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <View
+                    android:id="@+id/line_v1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F3F3F3"
+                    app:layout_constraintTop_toBottomOf="@+id/newspaper_posCode_ed" />
+                <RelativeLayout
+                    app:layout_constraintTop_toBottomOf="@+id/line_v1"
+                    android:id="@+id/feilv_relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="57dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/quote_ts2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/quote_ts1"
+                        android:text="费率"
+                        android:textColor="#302F2F"
+                        android:textSize="12sp" />
+
+                    <TextView
+
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/quote_ts2"
+                        android:id="@+id/feilv_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableRight="@mipmap/quote_activity_select_iv"
+                        android:drawablePadding="11dp"
+                        android:gravity="right|center"
+                        android:hint="请选择费率"
+                        android:textColor="#000000"
+                        android:textSize="12sp" />
+
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/line_v11"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F3F3F3"
+                    app:layout_constraintTop_toBottomOf="@+id/feilv_relative" />
+
+                <TextView
+                    android:id="@+id/tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓名\t\t\t"
+                    android:textColor="#302F2F"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/newspaper_idName_ed"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/newspaper_idName_ed" />
+
+                <EditText
+                    android:id="@+id/newspaper_idName_ed"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入法人姓名"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_v11" />
+
+                <View
+                    android:id="@+id/line_v2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F3F3F3"
+                    app:layout_constraintTop_toBottomOf="@+id/newspaper_idName_ed" />
+
+                <TextView
+                    android:id="@+id/tv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="身份证号"
+                    android:textColor="#302F2F"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/newspaper_card_number_ed"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/newspaper_card_number_ed" />
+
+
+                <EditText
+                    android:id="@+id/newspaper_card_number_ed"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入法人证件号码"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv3"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_v2" />
+
+                <View
+                    android:id="@+id/line_v3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F3F3F3"
+                    app:layout_constraintTop_toBottomOf="@+id/newspaper_card_number_ed" />
+
+                <TextView
+                    android:id="@+id/tv4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开始日期"
+                    android:textColor="#302F2F"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/newspaper_start_time"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/newspaper_start_time" />
+
+                <TextView
+                    android:id="@+id/newspaper_start_time"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:drawableRight="@mipmap/back_right"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical|right"
+                    android:hint="请选择开始时间"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv4"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_v3" />
+
+                <View
+                    android:id="@+id/line_v4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F3F3F3"
+                    app:layout_constraintTop_toBottomOf="@+id/newspaper_start_time" />
+
+
+                <TextView
+                    android:id="@+id/tv5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="到期时间"
+                    android:textColor="#302F2F"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/newspaper_end_time"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/newspaper_end_time" />
+
+                <TextView
+                    android:id="@+id/newspaper_end_time"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:drawableRight="@mipmap/back_right"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical|right"
+                    android:hint="请选择结束时间"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv5"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_v4" />
+
+                <View
+                    android:id="@+id/line_v5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F3F3F3"
+                    app:layout_constraintTop_toBottomOf="@+id/newspaper_end_time" />
+
+                <TextView
+                    android:id="@+id/tv6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="银行卡号"
+                    android:textColor="#302F2F"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/newspaper_bank_number_ed"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/newspaper_bank_number_ed" />
+
+                <EditText
+                    android:id="@+id/newspaper_bank_number_ed"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入银行卡号"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv6"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_v5" />
+
+                <View
+                    android:id="@+id/line_v6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F3F3F3"
+                    app:layout_constraintTop_toBottomOf="@+id/newspaper_bank_number_ed" />
+
+
+                <TextView
+                    android:id="@+id/tv7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手机号\t\t"
+                    android:textColor="#302F2F"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/newspaper_bank_phone_ed"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/newspaper_bank_phone_ed" />
+
+                <EditText
+                    android:id="@+id/newspaper_bank_phone_ed"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入预留手机号"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv7"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_v6" />
+
+                <View
+                    android:id="@+id/line_v7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F3F3F3"
+                    app:layout_constraintTop_toBottomOf="@+id/newspaper_bank_phone_ed" />
+
+                <TextView
+                    android:id="@+id/tv8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="省/市/区"
+                    android:textColor="#302F2F"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/newspaper_province_tv"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/newspaper_province_tv" />
+
+                <TextView
+                    android:id="@+id/newspaper_province_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:drawableRight="@mipmap/back_right"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical|right"
+                    android:hint="请选择省市区"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv8"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_v7" />
+
+                <View
+                    android:id="@+id/line_v8"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F3F3F3"
+                    app:layout_constraintTop_toBottomOf="@+id/newspaper_province_tv" />
+
+                <TextView
+                    android:id="@+id/tv9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详细地址"
+                    android:textColor="#302F2F"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/newspaper_address_ed"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/newspaper_address_ed" />
+
+
+                <EditText
+                    android:id="@+id/newspaper_address_ed"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入详细地址"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv9"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_v8" />
+
+                <View
+                    android:id="@+id/line_v10"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F3F3F3"
+                    app:layout_constraintTop_toBottomOf="@+id/newspaper_address_ed" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submit_bt"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/new_theme_color"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+</RelativeLayout>

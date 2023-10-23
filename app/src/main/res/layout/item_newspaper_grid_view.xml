@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+>
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/simple_iv"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        fresco:placeholderImage="@mipmap/small_merchants_card1" />
+    <ImageView
+        android:id="@+id/clear_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/simple_iv"
+        android:src="@mipmap/clonse"
+        android:layout_width="15dp"
+        android:layout_height="15dp"/>
+    <TextView
+        app:layout_constraintRight_toRightOf="@+id/simple_iv"
+        app:layout_constraintLeft_toLeftOf="@+id/simple_iv"
+        app:layout_constraintTop_toBottomOf="@+id/simple_iv"
+        android:textSize="12sp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/image_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="图片名称"
+      />
+
+</android.support.constraint.ConstraintLayout>

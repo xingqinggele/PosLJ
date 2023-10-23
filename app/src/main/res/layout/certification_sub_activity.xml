@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F3F3F3">
+
+
+    <RelativeLayout
+        android:id="@+id/title_relative"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/new_theme_color">
+        <!--返回键-->
+        <LinearLayout
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="25dp"
+                android:padding="5dp"
+                android:src="@mipmap/back_whilte_left" />
+
+        </LinearLayout>
+        <!--标题-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="获取验证码"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/merchant_detail2_line3"
+        android:background="@drawable/main_me_line_bg"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/title_relative"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/merchants_detail2_tv11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="认证手机号（用作收取验证码验证）"
+                android:textColor="#ff4c4c4c"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/merchants_detail2_tv12"
+                android:textColor="#F80C0C"
+                android:layout_toRightOf="@+id/merchants_detail2_tv11"
+                android:layout_centerVertical="true"
+                android:text="*"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <EditText
+            android:enabled="false"
+            android:maxLength="11"
+            android:inputType="number"
+            android:textColor="#000000"
+            android:id="@+id/cer_phone"
+            android:layout_marginLeft="12dp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:paddingRight="12dp"
+            android:background="@null"
+            android:textSize="12sp"
+            android:hint="请输入手机号"
+            android:layout_marginRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+
+        <View
+            android:background="#F3F3F3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <RelativeLayout
+            android:layout_marginLeft="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+
+            <EditText
+                android:id="@+id/ver_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="18dp"
+                android:layout_toLeftOf="@+id/ver_code_btn"
+                android:background="@null"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:maxLength="6"
+                android:maxLines="1"
+                android:paddingRight="12dp"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:background="@drawable/small_merchants_tv_bg"
+                android:id="@+id/ver_code_btn"
+                android:layout_marginRight="28dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="获取验证码"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/cer_submit_btn"
+        android:background="@color/new_theme_color"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:text="提交"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"/>
+</RelativeLayout>

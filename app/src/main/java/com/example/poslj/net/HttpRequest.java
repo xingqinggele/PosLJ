@@ -1063,4 +1063,116 @@ public class HttpRequest {
     public static void posVideoUpload(RequestParams params,String token,ResponseCallback callback) {
         RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/videoUpload", params, token,callback, null);
     }
+
+    /**
+     * posp修改费率
+     *
+     * @param params
+     * @param callback
+     */
+    public static void posUpdateMerchantFee(RequestParams params,String token,ResponseCallback callback) {
+        RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/updateMerchantFee", params, token,callback, null);
+    }
+
+    /**
+     * PosP报件上传
+     *
+     * @param params
+     * @param callback
+     */
+    public static void getPosPEdit(RequestParams params, String token,ResponseCallback callback) {
+        RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/updateAll/merchant/info", params,token,callback, null);
+    }
+
+
+    /**
+     * posp修改结算卡信息
+     *
+     * @param params
+     * @param callback
+     */
+    public static void posUpdateSettleAccount(RequestParams params,String token,ResponseCallback callback) {
+        RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/updateSettleAccount", params, token,callback, null);
+    }
+
+
+    /**
+     * 新版报件Sn是否存在
+     *
+     * @param params
+     * @param callback
+     */
+    public static void posMerchantInfoRecord(RequestParams params,String token,ResponseCallback callback) {
+        RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/getMerchantInfoRecord", params, token,callback, null);
+    }
+
+    /**
+     * 认证列表
+     *
+     * @param params
+     * @param callback
+     */
+    public static void backAccountList(RequestParams params,String token,ResponseCallback callback) {
+        RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/backAccountList", params,token, callback, null);
+    }
+
+    /**
+     * Cer 省
+     *
+     * @param params
+     * @param callback
+     */
+    public static void posGDBProvince(RequestParams params,String token,ResponseCallback callback) {
+        RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/add/merchant/GDBProvince", params,token, callback, null);
+    }
+    /**
+     * Cer 市
+     *
+     * @param params
+     * @param callback
+     */
+    public static void posGDBCity(RequestParams params,String token,ResponseCallback callback) {
+        RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/add/merchant/GDBCity", params,token, callback, null);
+    }
+
+    /**
+     * Cer 区
+     *
+     * @param params
+     * @param callback
+     */
+    public static void posGDBArea(RequestParams params,String token,ResponseCallback callback) {
+        RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/add/merchant/GDBArea", params,token, callback, null);
+    }
+
+    /**
+     * 认证银行卡验证码
+     *
+     * @param params
+     * @param callback
+     */
+    public static void posInfoForGDB(RequestParams params,String token,ResponseCallback callback) {
+        RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/add/merchant/infoForGDB", params,token, callback, null);
+    }
+
+    /**
+     * 提交
+     *
+     * @param params
+     * @param callback
+     */
+    public static void smsCodeConfirm(RequestParams params,String token,ResponseCallback callback) {
+        RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/add/merchant/smsCodeConfirm", params,token, callback, null);
+    }
+
+
+    /**
+     * 新报件---开店宝
+     *
+     * @param params
+     * @param callback
+     */
+    public static void getApplyMerchantKdbinfo(RequestParams params,String token, ResponseCallback callback) {
+        RequestMode.postRequest(Urls.commUrls + "pos/merchantInfo/add/merchant/kdbinfo", params,token,callback, null);
+    }
 }

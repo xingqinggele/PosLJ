@@ -38,10 +38,13 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
 import com.tencent.ocr.sdk.common.ISDKKitResultListener;
+import com.tencent.ocr.sdk.common.ISdkOcrEntityResultListener;
 import com.tencent.ocr.sdk.common.OcrModeType;
 import com.tencent.ocr.sdk.common.OcrSDKConfig;
 import com.tencent.ocr.sdk.common.OcrSDKKit;
 import com.tencent.ocr.sdk.common.OcrType;
+import com.tencent.ocr.sdk.entity.IdCardOcrResult;
+import com.tencent.ocr.sdk.entity.OcrProcessResult;
 import com.wildma.pictureselector.PictureBean;
 import com.wildma.pictureselector.PictureSelector;
 
@@ -374,8 +377,8 @@ public class HomeQuoteActivity2 extends BaseActivity implements View.OnClickList
         // 启动参数配置
         OcrType ocrType = OcrType.BankCardOCR; // 设置默认的业务识别，银行卡
         OcrSDKConfig configBuilder = OcrSDKConfig.newBuilder(secretId, secretKey, null)
-                .OcrType(ocrType)
-                .ModeType(OcrModeType.OCR_DETECT_MANUAL)
+                .setOcrType(ocrType)
+                .setModeType(OcrModeType.OCR_DETECT_MANUAL)
                 .build();
         // 初始化SDK
         OcrSDKKit.getInstance().initWithConfig(this.getApplicationContext(), configBuilder);
@@ -513,14 +516,12 @@ public class HomeQuoteActivity2 extends BaseActivity implements View.OnClickList
     //身份证证明识别
     private void getIDCardIn() {
         initSdk(getSecretId(), getSecretKey());
-        OcrSDKKit.getInstance().startProcessOcr(HomeQuoteActivity2.this, OcrType.IDCardOCR_FRONT, null,
-                new ISDKKitResultListener() {
+        OcrSDKKit.getInstance().startProcessOcrResultEntity(HomeQuoteActivity2.this, OcrType.IDCardOCR_FRONT, null, IdCardOcrResult.class,
+                new ISdkOcrEntityResultListener<IdCardOcrResult>() {
                     @Override
-                    public void onProcessSucceed(String response, String srcBase64Image, String requestId) {
-                        IdCardInfo tempIdCardInfo = new Gson().fromJson(response, IdCardInfo.class);
-                        Log.e("response", tempIdCardInfo.getRequestId());
-                        Log.e("response", tempIdCardInfo.toString());
-                        Bitmap bitmap = ImageConvertUtil.base64ToBitmap(srcBase64Image);
+                    public void onProcessSucceed(IdCardOcrResult idCardOcrResult, OcrProcessResult ocrProcessResult) {
+                        Log.e("response", idCardOcrResult.toString());
+                        Bitmap bitmap = ImageConvertUtil.base64ToBitmap(ocrProcessResult.imageBase64Str);
                         try {
                             if (bitmap != null)
                                 id_card_is.setImageBitmap(bitmap);
@@ -529,18 +530,19 @@ public class HomeQuoteActivity2 extends BaseActivity implements View.OnClickList
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        IdName = tempIdCardInfo.getName();
-                        IdNumber = tempIdCardInfo.getIdNum();
+                        IdName = idCardOcrResult.getName();
+                        IdNumber = idCardOcrResult.getIdNum();
                         setResultListData();
                     }
 
                     @Override
-                    public void onProcessFailed(String errorCode, String message, String requestId) {
+                    public void onProcessFailed(String errorCode, String message, OcrProcessResult ocrProcessResult) {
                         popTip(errorCode, message);
-                        Log.e("requestId", requestId);
+                        Log.e("requestId", ocrProcessResult.toString());
                         IdName = "";
                         IdNumber = "";
                     }
+
                 });
     }
 
@@ -548,13 +550,12 @@ public class HomeQuoteActivity2 extends BaseActivity implements View.OnClickList
     private void getIDCardOn() {
         initSdk(getSecretId(), getSecretKey());
         //身份证反面
-        OcrSDKKit.getInstance().startProcessOcr(HomeQuoteActivity2.this, OcrType.IDCardOCR_BACK, null,
-                new ISDKKitResultListener() {
+        OcrSDKKit.getInstance().startProcessOcrResultEntity(HomeQuoteActivity2.this, OcrType.IDCardOCR_BACK, null,IdCardOcrResult.class,
+                new ISdkOcrEntityResultListener<IdCardOcrResult>() {
                     @Override
-                    public void onProcessSucceed(String response, String srcBase64Image, String requestId) {
-                        IdCardInfo tempIdCardInfo = new Gson().fromJson(response, IdCardInfo.class);
-                        Log.e("response", tempIdCardInfo.getRequestId());
-                        Bitmap bitmap = ImageConvertUtil.base64ToBitmap(srcBase64Image);
+                    public void onProcessSucceed(IdCardOcrResult idCardOcrResult, OcrProcessResult ocrProcessResult) {
+                        Log.e("response", idCardOcrResult.toString());
+                        Bitmap bitmap = ImageConvertUtil.base64ToBitmap(ocrProcessResult.imageBase64Str);
                         try {
                             if (bitmap != null)
                                 id_card_the.setImageBitmap(bitmap);
@@ -563,25 +564,26 @@ public class HomeQuoteActivity2 extends BaseActivity implements View.OnClickList
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        IdValidDate = tempIdCardInfo.getValidDate();
+                        IdValidDate = idCardOcrResult.getValidDate();
                         setResultListData();
                     }
 
                     @Override
-                    public void onProcessFailed(String errorCode, String message, String requestId) {
+                    public void onProcessFailed(String errorCode, String message, OcrProcessResult ocrProcessResult) {
                         popTip(errorCode, message);
-                        Log.e("11111requestId", requestId);
+                        Log.e("11111requestId", ocrProcessResult.toString());
                         IdValidDate = "";
                     }
+
                 });
         //身份证反面
-        OcrSDKKit.getInstance().startProcessOcr(HomeQuoteActivity2.this, OcrType.IDCardOCR_BACK, null,
-                new ISDKKitResultListener() {
+        OcrSDKKit.getInstance().startProcessOcrResultEntity(HomeQuoteActivity2.this, OcrType.IDCardOCR_BACK, null,
+                IdCardOcrResult.class,
+                new ISdkOcrEntityResultListener<IdCardOcrResult>() {
                     @Override
-                    public void onProcessSucceed(String response, String srcBase64Image, String requestId) {
-                        IdCardInfo tempIdCardInfo = new Gson().fromJson(response, IdCardInfo.class);
-                        Log.e("response", tempIdCardInfo.getRequestId());
-                        Bitmap bitmap = ImageConvertUtil.base64ToBitmap(srcBase64Image);
+                    public void onProcessSucceed(IdCardOcrResult idCardOcrResult, OcrProcessResult ocrProcessResult) {
+                        Log.e("response", idCardOcrResult.toString());
+                        Bitmap bitmap = ImageConvertUtil.base64ToBitmap(ocrProcessResult.imageBase64Str);
                         try {
                             if (bitmap != null)
                                 id_card_the.setImageBitmap(bitmap);
@@ -590,16 +592,18 @@ public class HomeQuoteActivity2 extends BaseActivity implements View.OnClickList
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        IdValidDate = tempIdCardInfo.getValidDate();
+                        IdValidDate = idCardOcrResult.getValidDate();
                         setResultListData();
                     }
 
                     @Override
-                    public void onProcessFailed(String errorCode, String message, String requestId) {
+                    public void onProcessFailed(String errorCode, String message, OcrProcessResult ocrProcessResult) {
                         popTip(errorCode, message);
-                        Log.e("11111requestId", requestId);
+                        Log.e("11111requestId", ocrProcessResult.toString());
                         IdValidDate = "";
                     }
+
+
                 });
 
     }

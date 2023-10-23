@@ -80,7 +80,7 @@ public class CommonRequest {
       map.put(entry.getKey(),entry.getValue());
     }
     JSONObject json2 =new JSONObject(map);
-    Log.e("llll----","....."+json2);
+
     if (!TextUtils.isEmpty(bearer)){
       bearer = "Bearer "+bearer;
     }else {

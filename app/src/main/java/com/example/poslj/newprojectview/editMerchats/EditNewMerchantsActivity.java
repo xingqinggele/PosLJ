@@ -1,6 +1,5 @@
 package com.example.poslj.newprojectview.editMerchats;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,9 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.poslj.R;
-import com.example.poslj.adapter.NewMerchantsGridViewAdapter;
 import com.example.poslj.base.BaseActivity;
-import com.example.poslj.bean.BankCardInfo;
 import com.example.poslj.cos.CosServiceFactory;
 import com.example.poslj.net.HttpRequest;
 import com.example.poslj.net.OkHttpException;
@@ -35,14 +32,11 @@ import com.example.poslj.newprojectview.adapter.ZhiBankNameAdapter;
 import com.example.poslj.newprojectview.bean.BankNameBean;
 import com.example.poslj.newprojectview.bean.NewCityBean;
 import com.example.poslj.newprojectview.bean.NewProvinceBean;
-import com.example.poslj.newprojectview.bean.NewRateBean;
 import com.example.poslj.newprojectview.model.EditProvinceView;
 import com.example.poslj.utils.CustomConfigUtil;
 import com.example.poslj.utils.ImageConvertUtil;
 import com.example.poslj.utils.TimeUtils;
 import com.example.poslj.utils.Utility;
-import com.example.poslj.views.MyDialog;
-import com.example.poslj.views.MyGridView;
 import com.example.poslj.views.MyListView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -60,11 +54,13 @@ import com.tencent.cos.xml.transfer.TransferConfig;
 import com.tencent.cos.xml.transfer.TransferManager;
 import com.tencent.cos.xml.transfer.TransferState;
 import com.tencent.cos.xml.transfer.TransferStateListener;
-import com.tencent.ocr.sdk.common.ISDKKitResultListener;
+import com.tencent.ocr.sdk.common.ISdkOcrEntityResultListener;
 import com.tencent.ocr.sdk.common.OcrModeType;
 import com.tencent.ocr.sdk.common.OcrSDKConfig;
 import com.tencent.ocr.sdk.common.OcrSDKKit;
 import com.tencent.ocr.sdk.common.OcrType;
+import com.tencent.ocr.sdk.entity.BankCardOcrResult;
+import com.tencent.ocr.sdk.entity.OcrProcessResult;
 import com.wildma.pictureselector.PictureBean;
 import com.wildma.pictureselector.PictureSelector;
 
@@ -86,14 +82,8 @@ import top.zibin.luban.OnCompressListener;
  * 描述:新修改报件
  */
 public class EditNewMerchantsActivity extends BaseActivity implements View.OnClickListener,AdapterView.OnItemClickListener{
-    private RelativeLayout feilv_relative;
     private RelativeLayout province_relative;
-    //类型适配器Adapter
-    private NewMerchantsGridViewAdapter madapter;
     private String merchantCode;
-    private List<NewRateBean> rateBeans = new ArrayList<>();
-    private String rateId = "";
-    private TextView feilv_tv;
     private TextView province_tv;
     private SimpleDraweeView id_card_is;
     private EditText b_number;
@@ -147,8 +137,6 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
         transferManager = new TransferManager(cosXmlService, transferConfig);
         //初始化选择省市区
         provinceView = new EditProvinceView(this, EditNewMerchantsActivity.this);
-        feilv_relative = findViewById(R.id.feilv_relative);
-        feilv_tv = findViewById(R.id.feilv_tv);
         id_card_is = findViewById(R.id.id_card_is);
         b_number = findViewById(R.id.b_number);
         quote_xy_card_name = findViewById(R.id.quote_xy_card_name);
@@ -161,13 +149,11 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
         province_tv = findViewById(R.id.province_tv);
         province_relative = findViewById(R.id.province_relative);
         iv_back = findViewById(R.id.iv_back);
-        posRate();
 
     }
 
     @Override
     protected void initListener() {
-        feilv_relative.setOnClickListener(this);
         submit_bt.setOnClickListener(this);
         id_card_is.setOnClickListener(this);
         iv_back.setOnClickListener(this);
@@ -187,9 +173,6 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.feilv_relative:
-                showDialog(rateBeans);
-                break;
             case R.id.submit_bt:
                 if (TextUtils.isEmpty(url4)) {
                     showToast(3, "银行卡正面照片");
@@ -219,15 +202,11 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
                     showToast(3, "银行编码");
                     return;
                 }
-                if (TextUtils.isEmpty(bankSite_tv.getText().toString())) {
-                    showToast(3, "开户支行网点");
+                if (TextUtils.isEmpty(bankSite)) {
+                    showToast(3, "请选择正确开户支行网点");
                     return;
                 }
-                if (isEdit){
-                    upload(url4,"baojian" + "/" + author + "/" + TimeUtils.getNowTime("day"));
-                }else {
-                    posData();
-                }
+                posData();
                 break;
             case R.id.id_card_is:
                 showEditPhotoWindow(BankCardIn);
@@ -262,19 +241,21 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
                     popWindow.dismiss();
                 }
                 initSdk(getSecretId(), getSecretKey());
-                OcrSDKKit.getInstance().startProcessOcr(EditNewMerchantsActivity.this, OcrType.BankCardOCR,
-                        CustomConfigUtil.getInstance().getCustomConfigUi(), new ISDKKitResultListener() {
+                OcrSDKKit.getInstance().startProcessOcrResultEntity(EditNewMerchantsActivity.this, OcrType.BankCardOCR,
+                        CustomConfigUtil.getInstance().getCustomConfigUi(), BankCardOcrResult.class,new ISdkOcrEntityResultListener<BankCardOcrResult>() {
                             @Override
-                            public void onProcessSucceed(String response, String srcBase64Image, String requestId) {
+                            public void onProcessSucceed(BankCardOcrResult bankCardOcrResult, OcrProcessResult ocrProcessResult) {
                                 //回显银行卡信息
-                                getBank_information(response, srcBase64Image);
+                                getBank_information(bankCardOcrResult, ocrProcessResult.imageBase64Str);
                             }
 
                             @Override
-                            public void onProcessFailed(String errorCode, String message, String requestId) {
+                            public void onProcessFailed(String errorCode, String message, OcrProcessResult ocrProcessResult) {
                                 popTip(errorCode, message);
-                                Log.e("requestId", requestId);
+                                Log.e("requestId", ocrProcessResult.toString());
                             }
+
+
                         });
             }
         });
@@ -316,8 +297,8 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
         // 启动参数配置
         OcrType ocrType = OcrType.BankCardOCR; // 设置默认的业务识别，银行卡
         OcrSDKConfig configBuilder = OcrSDKConfig.newBuilder(secretId, secretKey, null)
-                .OcrType(ocrType)
-                .ModeType(OcrModeType.OCR_DETECT_MANUAL)
+                .setOcrType(ocrType)
+                .setModeType(OcrModeType.OCR_DETECT_MANUAL)
                 .build();
         // 初始化SDK
         OcrSDKKit.getInstance().initWithConfig(this.getApplicationContext(), configBuilder);
@@ -329,23 +310,23 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
      * @param response
      * @param srcBase64Image
      */
-    public void getBank_information(String response, String srcBase64Image) {
+    public void getBank_information(BankCardOcrResult response, String srcBase64Image) {
         try {
             if (!srcBase64Image.isEmpty()) {
                 retBitmap1 = ImageConvertUtil.base64ToBitmap(srcBase64Image);
             }
             if (retBitmap1 != null) {
                 id_card_is.setImageBitmap(retBitmap1);
-                url4 = ImageConvertUtil.getFile(retBitmap1).getCanonicalPath();
-                isEdit = true;
+                // url4 = ImageConvertUtil.getFile(retBitmap1).getCanonicalPath();
+                //isEdit = true;
+                upload(ImageConvertUtil.getFile(retBitmap1).getCanonicalPath(),"baojian" + "/" + author + "/" + TimeUtils.getNowTime("day"));
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (!response.isEmpty()) {
-            final BankCardInfo bankCardInfo = new Gson().fromJson(response, BankCardInfo.class);
-            b_number.setText(bankCardInfo.getCardNo());
+        if (!response.getCardNo().isEmpty()) {
+            b_number.setText(response.getCardNo());
         }
     }
 
@@ -355,33 +336,7 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
         OcrSDKKit.getInstance().release();
 
     }
-    /***
-     * 选择类型
-     */
-    public void showDialog(List<NewRateBean> mList) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.home_quote_type_dialog, null);
-        Button data_bill_dialog_btn = view.findViewById(R.id.data_bill_dialog_btn);
-        MyGridView data_bill_dialog_grid = view.findViewById(R.id.data_bill_dialog_grid);
-        madapter = new NewMerchantsGridViewAdapter(EditNewMerchantsActivity.this, mList);
-        data_bill_dialog_grid.setAdapter(madapter);
-        data_bill_dialog_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //把点击的position传递到adapter里面去
-                madapter.changeState(i);
-                feilv_tv.setText(mList.get(i).getFeeValue());
-                rateId = mList.get(i).getFeeId();
-            }
-        });
-        Dialog dialog = new MyDialog(EditNewMerchantsActivity.this, true, true, (float) 1).setNewView(view);
-        dialog.show();
-        data_bill_dialog_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-    }
+
 
 
     /**
@@ -418,40 +373,15 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
     private void setValue(JSONObject result) {
         try {
             id_card_is.setImageURI(result.getString("bankCardPic"));
-            rateId = result.getString("feeId");
             b_number.setText(result.getString("bankCardAccount"));
             quote_xy_card_name.setText(result.getString("bankCardHolder"));
             quote_xy_phone.setText(result.getString("bankCardPhone"));
-            feilv_tv.setText(result.getString("feeValue"));
             url4 = result.getString("bankCardPic");
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    //获取费率
-    private void posRate() {
-        RequestParams params = new RequestParams();
-        HttpRequest.posEchoFeeId(params, getToken(),new ResponseCallback() {
-            @Override
-            public void onSuccess(Object responseObj) {
-                Gson gson = new GsonBuilder().serializeNulls().create();
-                try {
-                    JSONObject result = new JSONObject(responseObj.toString());
-                    rateBeans = gson.fromJson(result.getJSONArray("data").toString(),
-                            new TypeToken<List<NewRateBean>>() {
-                            }.getType());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(OkHttpException failuer) {
-                Failuer(failuer.getEcode(), failuer.getEmsg());
-            }
-        });
-    }
 
     //银行编码监听
     TextWatcher textWatcher = new TextWatcher() {
@@ -601,12 +531,12 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
                 @Override
                 public void onSuccess(CosXmlRequest request, CosXmlResult result) {
                     COSXMLUploadTask.COSXMLUploadTaskResult cOSXMLUploadTaskResult = (COSXMLUploadTask.COSXMLUploadTaskResult) result;
+                    isEdit = false;
                     cosxmlTask = null;
                     setResult(RESULT_OK);
                     url4 = cOSXMLUploadTaskResult.accessUrl;
                     shouLog("--------->",url4);
-                    isEdit = false;
-                    posData();
+                    //posData();
                 }
 
                 @Override
@@ -626,12 +556,9 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
     //发送修改数据
     private void posData() {
         loadDialog.show();
-
         RequestParams params = new RequestParams();
         //商户号
         params.put("merchantCode", merchantCode);
-        //费率ID
-        params.put("feeId", rateId);
         //银行账号
         params.put("bankCardAccount", b_number.getText().toString().trim());
         //开户名
@@ -650,10 +577,12 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
         params.put("bankSite", bankSite);
         //开户支行联行号
         params.put("unionpayCode", bankSiteCode);
-        HttpRequest.posMerchantEdit(params, getToken(), new ResponseCallback() {
+        HttpRequest.posUpdateSettleAccount(params, getToken(), new ResponseCallback() {
             @Override
             public void onSuccess(Object responseObj) {
-                loadDialog.dismiss();
+                if (loadDialog.isShowing()){
+                    loadDialog.dismiss();
+                }
                 showToast(3,"修改成功，等待审核！");
                 finish();
             }
@@ -745,35 +674,40 @@ public class EditNewMerchantsActivity extends BaseActivity implements View.OnCli
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == BankCardIn) {
-            PictureBean pictureBean = data.getParcelableExtra(PictureSelector.PICTURE_RESULT);
-            Luban.with(this)
-                    .load(pictureBean.getPath())
-                    .ignoreBy(100)
-                    .setTargetDir(Utility.getPath())
-                    .filter(new CompressionPredicate() {
-                        @Override
-                        public boolean apply(String path) {
-                            return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
-                        }
-                    })
-                    .setCompressListener(new OnCompressListener() {
-                        @Override
-                        public void onStart() {
+            if (data != null){
+                PictureBean pictureBean = data.getParcelableExtra(PictureSelector.PICTURE_RESULT);
+                Luban.with(this)
+                        .load(pictureBean.getPath())
+                        .ignoreBy(100)
+                        .setTargetDir(Utility.getPath())
+                        .filter(new CompressionPredicate() {
+                            @Override
+                            public boolean apply(String path) {
+                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                            }
+                        })
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
 
-                        }
+                            }
 
-                        @Override
-                        public void onSuccess(File file) {
-                            url4 = file.getPath();
-                            id_card_is.setImageBitmap(BitmapFactory.decodeFile(url4));
-                            isEdit = true;
-                        }
+                            @Override
+                            public void onSuccess(File file) {
+                                // url4 = file.getPath();
+                                id_card_is.setImageBitmap(BitmapFactory.decodeFile(file.getPath()));
+                                //isEdit = true;
+                                upload(file.getPath(),"baojian" + "/" + author + "/" + TimeUtils.getNowTime("day"));
 
-                        @Override
-                        public void onError(Throwable e) {
+                            }
 
-                        }
-                    }).launch();
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }).launch();
+            }
+
         }
     }
 }

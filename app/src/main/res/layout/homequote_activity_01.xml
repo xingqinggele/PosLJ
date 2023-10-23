@@ -346,7 +346,7 @@
                 android:layout_below="@+id/merchant_detail_line1"
                 android:layout_marginLeft="10dp"
                 android:text="*您只能修改终端费率、银行卡选项！"
-                android:textColor="@color/txy_red"
+                android:textColor="#F80C0C"
                 android:textSize="12sp"
                 android:visibility="gone" />
         </RelativeLayout>

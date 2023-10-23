@@ -10,8 +10,8 @@ android {
         applicationId "com.example.poslj"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 17
-        versionName "2.5.0"
+        versionCode 22
+        versionName "3.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -92,7 +92,7 @@ dependencies {
     //xlog组件，文字识别,卡片识别
     implementation 'com.tencent.mars:mars-xlog:1.2.3'
     //依赖腾讯云的OcrSDK的aar
-    implementation files('libs/OcrSDKv1.0.4-release.aar')
+//    implementation files('libs/OcrSDKv1.0.4-release.aar')
     //腾讯云存储
     implementation 'com.tencent.qcloud:cosxml:5.4.30'
     //轮播图
@@ -125,4 +125,10 @@ dependencies {
     implementation 'com.github.nanchen2251:ScreenRecordHelper:1.0.2'
     //视频压缩
     implementation 'com.github.yellowcath:VideoProcessor:2.3.0'
+
+    // 依赖腾讯云的OcrSDK的aar
+    implementation files('libs/OcrSDK-common-model-v1.0.0-release.aar')
+    implementation files('libs/OcrSDK-public-v2.0.0.4-release.aar')
+    implementation files('libs/tencent-ai-sdk-aicamera-1.0.18-release.aar')
+    implementation files('libs/tencent-ai-sdk-common-1.1.27-release.aar')
 }

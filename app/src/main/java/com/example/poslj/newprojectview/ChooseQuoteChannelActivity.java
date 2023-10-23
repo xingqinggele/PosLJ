@@ -18,6 +18,7 @@ public class ChooseQuoteChannelActivity extends BaseActivity implements View.OnC
     private LinearLayout iv_back;
     private ConstraintLayout old_quote_constrain;
     private ConstraintLayout new_quote_constrain;
+    private ConstraintLayout online_kdb_constrain;
 
     @Override
     protected int getLayoutId() {
@@ -31,6 +32,7 @@ public class ChooseQuoteChannelActivity extends BaseActivity implements View.OnC
         iv_back = findViewById(R.id.iv_back);
         old_quote_constrain = findViewById(R.id.old_quote_constrain);
         new_quote_constrain = findViewById(R.id.new_quote_constrain);
+        online_kdb_constrain = findViewById(R.id.online_kdb_constrain);
     }
 
     @Override
@@ -38,6 +40,7 @@ public class ChooseQuoteChannelActivity extends BaseActivity implements View.OnC
         iv_back.setOnClickListener(this);
         old_quote_constrain.setOnClickListener(this);
         new_quote_constrain.setOnClickListener(this);
+        online_kdb_constrain.setOnClickListener(this);
     }
 
     @Override
@@ -48,10 +51,6 @@ public class ChooseQuoteChannelActivity extends BaseActivity implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.new_quote_constrain:
-                startActivity(new Intent(this, AddMerchantsActivity1.class));
-
-                break;
             case R.id.old_quote_constrain:
 //                startActivity(new Intent(this, OldAddMerchantsActivity1.class));
                 Intent intent = new Intent(this, HomeQuoteActivity1.class);
@@ -61,6 +60,16 @@ public class ChooseQuoteChannelActivity extends BaseActivity implements View.OnC
                 break;
             case R.id.iv_back:
                 finish();
+                break;
+            //新报件--乐刷
+            case R.id.new_quote_constrain:
+//                startActivity(new Intent(this, AddMerchantsActivity1.class));
+                startActivity(new Intent(this, LsSpaperActivity.class));
+                break;
+            //新报件--开店宝
+            case R.id.online_kdb_constrain:
+                Intent intent4 = new Intent(this, KdbSpaperActivity.class);
+                startActivity(intent4);
                 break;
         }
     }

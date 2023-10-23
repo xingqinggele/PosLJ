@@ -385,8 +385,8 @@
             android:name=".homefragment.homeInvitepartners.HomeFillActivity"
             android:configChanges="screenSize|keyboardHidden|orientation" />
         <activity
-            android:configChanges="screenSize|keyboardHidden|orientation"
-            android:name=".homefragment.homelibao.LiBaoActivity" />
+            android:name=".homefragment.homelibao.LiBaoActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
         <!--        我的费率-->
         <activity
             android:name=".mefragment.mefeilv.MeFeilvActivity"
@@ -400,34 +400,81 @@
             android:name=".homefragment.hometeam.HomeTeamRateActivity"
             android:configChanges="screenSize|keyboardHidden|orientation" />
         <!--        报件成功-->
-        <activity android:name=".homefragment.homequoteactivity.QuoteSucceccActivity"
+        <activity
+            android:name=".homefragment.homequoteactivity.QuoteSucceccActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".homefragment.homewallet.activity.MeSigningActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".homefragment.homewallet.SiginWebActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.editMerchats.EditNewMerchantsActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.AddMerchantsActivity1"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.AddMerchantsActivity2"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.AddMerchantsActivity3"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.BindingEquipmentActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.BindingEquipmentSigningActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.MeMerchantsSelectActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.NewMeQuoteActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.ProcessActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.VideoNuclearActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.ChooseQuoteChannelActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.editMerchats.EditRateActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.editMerchats.EditPosPMerchantsActivity1"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.editMerchats.EditPosPMerchantsActivity2"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".newprojectview.editMerchats.EditPosPMerchantsActivity3"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <!--认证银行卡短信验证接口-->
+        <activity
+            android:name=".newprojectview.CertificationSubActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <!--认证银行卡列表-->
+        <activity
+            android:name=".newprojectview.CertificationListActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <!--添加银行卡-->
+        <activity
+            android:name=".newprojectview.CertificationAddActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+<!--        开店宝进件-->
+        <activity android:name=".newprojectview.KdbSpaperActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".homefragment.homewallet.activity.MeSigningActivity"
+<!--        乐刷进件-->
+        <activity android:name=".newprojectview.LsSpaperActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".homefragment.homewallet.SiginWebActivity"
+<!--        图片展示-->
+        <activity android:name=".newprojectview.PicImageActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".newprojectview.editMerchats.EditNewMerchantsActivity"
-             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".newprojectview.AddMerchantsActivity1"
-             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".newprojectview.AddMerchantsActivity2"
-             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".newprojectview.AddMerchantsActivity3"
-             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".newprojectview.BindingEquipmentActivity"
-             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".newprojectview.BindingEquipmentSigningActivity"
-             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".newprojectview.MeMerchantsSelectActivity"
-             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".newprojectview.NewMeQuoteActivity"
-             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".newprojectview.ProcessActivity"
-             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".newprojectview.VideoNuclearActivity"
-             android:configChanges="screenSize|keyboardHidden|orientation"/>
-        <activity android:name=".newprojectview.ChooseQuoteChannelActivity"
-             android:configChanges="screenSize|keyboardHidden|orientation"/>
     </application>
 
 </manifest>

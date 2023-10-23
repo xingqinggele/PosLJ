@@ -3,6 +3,7 @@ package com.example.poslj.newprojectview.adapter;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,10 +24,18 @@ public class QuoteAdapter extends BaseQuickAdapter<QuoteBean, BaseViewHolder> {
     //绑定回调方法
     private BindCallback callback;
     private EditCallback editCallback;
-    public QuoteAdapter(int layoutResId, @Nullable List<QuoteBean> data, BindCallback callback, EditCallback editCallback) {
+    private EditRateCallback editRateCallback;
+    private FallDialog fallDialog;
+    private CertificationCallBck certificationCallBck;
+
+    public QuoteAdapter(int layoutResId, @Nullable List<QuoteBean> data, BindCallback callback, EditCallback editCallback,EditRateCallback editRateCallback,FallDialog fallDialog,CertificationCallBck certificationCallBck) {
         super(layoutResId, data);
         this.callback = callback;
         this.editCallback = editCallback;
+        this.editRateCallback = editRateCallback;
+        this.fallDialog = fallDialog;
+        this.certificationCallBck = certificationCallBck;
+
     }
 
     @SuppressLint("Range")
@@ -44,52 +53,52 @@ public class QuoteAdapter extends BaseQuickAdapter<QuoteBean, BaseViewHolder> {
         //绑定文字
         String bind_test = "";
         //状态颜色
-        String color = "";
+        String color = "#3CA0FF";
         //状态文字
         String title = "";
 
-        boolean isFaill = false;
+        //费率是否显示
+        boolean rate = false;
+        //posp修改状态
+        boolean editEnl = false;
+        //报件失败原因
+        boolean failureMsg = false;
+        //修改状态颜色
+        String eColor = "#3CA0FF";
+        //修改报件状态
+        String editStaticTV = "";
+        //修改失败原因显示
+        boolean editFailureMsg = false;
 
+        //认证银行卡
+        boolean isCer = false;
         if (item.getType().equals("1")){
-            isFaill = false;
+            editEnl = false;
+            isCer = false;
+
             bind = false;
-            if (item.getIsAudit().equals("-2")) {
-                title = "商户不存在";
-                color = "#DC143C";
-                repair = false;
-            } else if (item.getIsAudit().equals("-1")) {
-                title = "待完善资料";
-                color = "#DC143C";
-                repair = false;
-            } else if (item.getIsAudit().equals("0")) {
-                title = "待审核";
-                color = "#3CA0FF";
-                repair = false;
-            }else if (item.getIsAudit().equals("1")){
+            if (item.getIsAudit().equals("1")){
                 title = "报件失败";
                 color = "#DC143C";
                 repair = true;
                 edit_test = "重新报件";
+                failureMsg = true;
+
             }else if (item.getIsAudit().equals("2")){
                 title = "进行中";
                 color = "#3CA0FF";
                 repair = false;
+                failureMsg = false;
             }else if (item.getIsAudit().equals("3")){
                 title = "报件成功";
                 edit_test = "修改";
                 color = "#29D385";
                 repair = true;
-            }else if (item.getIsAudit().equals("11")) {
-                title = "注销申请";
-                color = "#E73118";
-                repair = false;
-            } else if (item.getIsAudit().equals("12")) {
-                title = "注销成功";
-                color = "#E73118";
-                repair = false;
+                failureMsg = false;
             }
 
         }else {
+
             if (item.getActivateStatus().equals("0")){
                 bind_test = "未绑定";
 
@@ -102,43 +111,95 @@ public class QuoteAdapter extends BaseQuickAdapter<QuoteBean, BaseViewHolder> {
                 color = "#DC143C";
                 repair = true;
                 bind = false;
-                edit_test = "重新报件";
-                isFaill = true;
+                edit_test = "修改报件";
+                rate = false;
 
+                editEnl = false;
+                failureMsg = true;
             }else if (item.getIsAudit().equals("2") || item.getIsAudit().equals("0")){
                 title = "进行中";
                 color = "#3CA0FF";
                 repair = false;
                 bind = false;
-                isFaill = false;
+
+                editEnl = false;
+                failureMsg = false;
+
             }else if (item.getIsAudit().equals("3")){
                 title = "报件成功";
                 edit_test = "修改";
                 color = "#29D385";
-                repair = true;
                 bind = true;
-                isFaill = false;
+                rate = true;
+                editEnl = true;
+                failureMsg = false;
+
+                isCer = true;
+                //posP修改
+                switch (item.getSettleAccountStatus()){
+                    case "0":
+                        editStaticTV = "未修改";
+                        repair = true;
+                        eColor = "#3CA0FF";
+                        editFailureMsg = false;
+                        break;
+                    case "1":
+                        editStaticTV = "修改失败";
+                        repair = true;
+                        eColor = "#DC143C";
+                        editFailureMsg = true;
+                        break;
+                    case "2":
+                        editStaticTV = "修改中";
+                        repair = false;
+                        eColor = "#3CA0FF";
+                        editFailureMsg = false;
+                        break;
+                    case "3":
+                        editStaticTV = "修改成功";
+                        repair = true;
+                        eColor = "#29D385";
+                        editFailureMsg = false;
+                        break;
+                }
             }
         }
         helper.setVisible(R.id.edit_merchants, repair);
         helper.setVisible(R.id.bind_merchants, bind);
-        helper.setText(R.id.tv_status, title);
+        helper.setText(R.id.tv_status, "审核状态："+title);
         helper.setTextColor(R.id.tv_status, Color.parseColor(color));
         helper.setText(R.id.edit_merchants, edit_test);
         helper.setText(R.id.bind_merchants, bind_test);
+        //修改状态
+        helper.setVisible(R.id.m_rela2,editEnl);
+        //修改进件状态
+        helper.setText(R.id.edit_static,"修改状态："+editStaticTV);
+        helper.setTextColor(R.id.edit_static, Color.parseColor(eColor));
+        helper.setText(R.id.edit_fall_tv,"("+item.getAuditMsg()+")");
+        helper.setVisible(R.id.edit_fall_tv,editFailureMsg);
 
-        helper.setVisible(R.id.failure_btn, isFaill);
+
+
+        //报件失败原因
+        helper.setText(R.id.b_fail_msg_tv,"("+item.getAuditMsg()+")");
+        //报件失败原因是否显示
+        helper.setVisible(R.id.b_fail_msg_tv,failureMsg);
+        //费率
+        helper.setVisible(R.id.rate_edit, rate);
+        //银行卡认证--->只有posP 报件成功显示
+        helper.setVisible(R.id.certification_merchants, isCer);
         //绑定
         helper.setOnClickListener(R.id.bind_merchants, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e("sn",item.getId());
                 if (callback == null) return;
                 if (!item.getActivateStatus().equals("0"))return;
-                    callback.addBind(item.getMerchCode(),item.getId());
+                callback.addBind(item.getMerchCode(),item.getId());
+
             }
         });
-
-        //修改
+        //修改报件
         helper.setOnClickListener(R.id.edit_merchants, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,12 +207,36 @@ public class QuoteAdapter extends BaseQuickAdapter<QuoteBean, BaseViewHolder> {
                 editCallback.edit(item.getMerchCode(),item.getIsAudit(),item.getType());
             }
         });
-        helper.setOnClickListener(R.id.failure_btn, new View.OnClickListener() {
+        //修改费率
+        helper.setOnClickListener(R.id.rate_edit, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(helper.itemView.getContext(),item.getAuditMsg(),Toast.LENGTH_LONG).show();
+                editRateCallback.edit(item.getMerchCode());
             }
         });
+
+        helper.setOnClickListener(R.id.b_fail_msg_tv, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fallDialog.dialog(item.getAuditMsg());
+            }
+        });
+
+        helper.setOnClickListener(R.id.edit_fall_tv, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fallDialog.dialog(item.getAuditMsg());
+            }
+        });
+
+        //认证银行卡
+        helper.setOnClickListener(R.id.certification_merchants, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                certificationCallBck.iniCer(item.getMerchCode());
+            }
+        });
+
     }
 
     //绑定接口
@@ -162,5 +247,19 @@ public class QuoteAdapter extends BaseQuickAdapter<QuoteBean, BaseViewHolder> {
     //修改接口
     public interface EditCallback{
         void edit(String id,String type,String isSta);
+    }
+
+    //修改费率
+    public interface EditRateCallback{
+        void edit(String id);
+    }
+
+    //失败原因
+    public interface FallDialog{
+        void dialog(String content);
+    }
+    //认证银行卡
+    public interface CertificationCallBck{
+        void iniCer(String merchCode);
     }
 }

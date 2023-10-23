@@ -19,6 +19,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.poslj.R;
 import com.example.poslj.base.BaseActivity;
 import com.example.poslj.homefragment.homemerchants.memerchants.activity.MeMerchantsDetailActivity;
+import com.example.poslj.homefragment.homequoteactivity.HomeQuoteActivity1;
 import com.example.poslj.net.HttpRequest;
 import com.example.poslj.net.OkHttpException;
 import com.example.poslj.net.RequestParams;
@@ -29,7 +30,10 @@ import com.example.poslj.newprojectview.adapter.QuoteAdapter;
 import com.example.poslj.newprojectview.bean.NewMeQuoBean;
 import com.example.poslj.newprojectview.bean.QuoteBean;
 import com.example.poslj.newprojectview.editMerchats.EditNewMerchantsActivity;
+import com.example.poslj.newprojectview.editMerchats.EditPosPMerchantsActivity1;
+import com.example.poslj.newprojectview.editMerchats.EditRateActivity;
 import com.example.poslj.views.MyDialog;
+import com.example.poslj.views.MyDialog1;
 import com.example.poslj.views.MyGridView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,7 +50,7 @@ import java.util.List;
  * 创建日期：2022/8/22
  * 描述:新商户列表
  */
-public class NewMeQuoteActivity extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, QuoteAdapter.BindCallback, QuoteAdapter.EditCallback {
+public class NewMeQuoteActivity extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, QuoteAdapter.BindCallback, QuoteAdapter.EditCallback, QuoteAdapter.EditRateCallback, QuoteAdapter.FallDialog , QuoteAdapter.CertificationCallBck{
     //返回键
     private LinearLayout iv_back;
     private EditText me_merchants_person_ed_search;
@@ -130,7 +134,7 @@ public class NewMeQuoteActivity extends BaseActivity implements View.OnClickList
         //上拉刷新初始化
         swipe_layout.setOnRefreshListener(this);
         //adapter配置data
-        quoteAdapter = new QuoteAdapter(R.layout.item_new_merchats, mData,this,this);
+        quoteAdapter = new QuoteAdapter(R.layout.item_new_merchats, mData, this, this,this,this,this);
         //打开加载动画
         quoteAdapter.openLoadAnimation();
         //设置启用加载更多
@@ -298,26 +302,77 @@ public class NewMeQuoteActivity extends BaseActivity implements View.OnClickList
         startActivity(intent);
     }
 
+
     /**
      * 点击修改
+     *
      * @param id
-     * @param type
+     * @param isAudit
      */
     @Override
-    public void edit(String id, String type,String isSta) {
-        if (type.equals("1")){
-            startActivity(new Intent(this, AddMerchantsActivity1.class));
+    public void edit(String id, String isAudit, String isType) {
+        Intent intent;
+        //判定报件 1支付通 非 posp
+        if (isType.equals("1")){
+            intent = new Intent(this, HomeQuoteActivity1.class);
+            intent.putExtra("id", id);
+            intent.putExtra("type", "2");
+            intent.putExtra("bj_type", isAudit);
         }else {
-            if (isSta.equals("1")){
-//                intent = new Intent(this, EditMerchantsActivity1.class);
-//                intent.putExtra("id",id);
+            if (isAudit.equals("1")){
+                intent = new Intent(this, EditPosPMerchantsActivity1.class);
             }else {
-                Intent intent = new Intent(this, EditNewMerchantsActivity.class);
-                intent.putExtra("sid",id);
-                startActivity(intent);
+                intent = new Intent(this, EditNewMerchantsActivity.class);
             }
-
+            intent.putExtra("sid", id);
         }
 
+        startActivity(intent);
+
+    }
+
+
+    /**
+     * 修改费率
+     * @param id
+     */
+    @Override
+    public void edit(String id) {
+        Intent intent = new Intent(this, EditRateActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
+    }
+
+    /**
+     * 失败原因他弹框
+     * @param content
+     */
+    @Override
+    public void dialog(String content) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.new_me_quote_dialog_content, null);
+        TextView textView = view.findViewById(R.id.dialog_tv1);
+        TextView dialog_determine = view.findViewById(R.id.dialog_determine);
+        textView.setText(content);
+        Dialog dialog = new MyDialog1(NewMeQuoteActivity.this, true, true, (float) 0.7).setNewView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        dialog_determine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //提交
+                dialog.dismiss();
+
+            }
+        });
+    }
+
+    /**
+     * 认证银行卡
+     */
+    @Override
+    public void iniCer(String merchCode) {
+        Intent intent = new Intent(NewMeQuoteActivity.this, CertificationListActivity.class);
+        intent.putExtra("merchCode",merchCode);
+        startActivity(intent);
     }
 }

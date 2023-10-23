@@ -21,6 +21,8 @@ public class QuoteBean {
     private String terminalNo;
     private String type;
     private String activateStatus;
+    private String settleAccountStatus;
+
 
     public String getMerchantName() {
         return merchantName;
@@ -124,5 +126,13 @@ public class QuoteBean {
 
     public void setActivateStatus(String activateStatus) {
         this.activateStatus = activateStatus;
+    }
+
+    public String getSettleAccountStatus() {
+        return settleAccountStatus;
+    }
+
+    public void setSettleAccountStatus(String settleAccountStatus) {
+        this.settleAccountStatus = settleAccountStatus;
     }
 }

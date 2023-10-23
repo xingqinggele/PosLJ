@@ -98,6 +98,11 @@ public class TimeUtils {
         return sf.format(d);
     }
 
+    public static String getCerTime(Date date) {//可根据需要自行截取数据显示
+        SimpleDateFormat format = new SimpleDateFormat("yyMM");
+        return format.format(date);
+    }
+
     /**
      * 把时间戳变yyyy/MM格式时间
      *
